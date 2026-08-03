@@ -1,0 +1,305 @@
+/* The Firm — document viewer
+   Period chrome, modern legibility. No texture that fights reading. */
+
+:root {
+  --manila: #cdb989;
+  --manila-dark: #b8a377;
+  --paper: #f6f0e2;
+  --paper-carbon: #eef1f4;
+  --ink: #262019;
+  --ink-blue: #22314f;
+  --oxblood: #6b1f22;
+  --tobacco: #6b4a2f;
+  --green-leather: #16261c;
+
+  --serif: Georgia, "Times New Roman", Times, serif;
+  --mono: "Courier New", Courier, "Consolas", ui-monospace, monospace;
+  --script: "Segoe Script", "Bradley Hand", "Apple Chancery", cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--green-leather);
+  background-image:
+    radial-gradient(ellipse at 50% -10%, #24382a 0%, var(--green-leather) 60%);
+  color: var(--ink);
+  font-family: var(--serif);
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 100vh;
+}
+
+/* ---------- folder / document list ---------- */
+
+.folder {
+  background: var(--manila);
+  border-right: 1px solid var(--manila-dark);
+  padding: 28px 20px;
+  box-shadow: inset -8px 0 16px -12px rgba(0, 0, 0, 0.4);
+}
+
+.case-title {
+  margin: 0 0 2px;
+  font-size: 1.3rem;
+  color: var(--ink-blue);
+  letter-spacing: 0.02em;
+}
+
+.case-opens {
+  margin: 0 0 24px;
+  font-size: 0.85rem;
+  color: var(--tobacco);
+  font-style: italic;
+}
+
+.doc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.doc-list-item {
+  background: var(--paper);
+  border-left: 4px solid var(--tobacco);
+  padding: 10px 12px;
+  cursor: pointer;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.doc-list-item:hover {
+  transform: translateX(2px);
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35);
+}
+
+.doc-list-item.active {
+  border-left-color: var(--oxblood);
+  background: #fffaf0;
+}
+
+.doc-type-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  margin-bottom: 3px;
+}
+
+.doc-title-label {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.pin-flag {
+  display: none;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-blue);
+  margin-top: 4px;
+}
+
+.doc-list-item.pinned {
+  border-left-color: var(--ink-blue);
+}
+
+.doc-list-item.pinned .pin-flag {
+  display: block;
+}
+
+/* ---------- reading area ---------- */
+
+.reading-area {
+  padding: 48px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+  overflow-y: auto;
+}
+
+.reading-area.split {
+  justify-content: stretch;
+  gap: 32px;
+}
+
+.reading-pane {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pinned-pane {
+  display: none;
+}
+
+.reading-area.split .pinned-pane {
+  display: flex;
+  padding-right: 32px;
+  border-right: 1px dashed rgba(255, 255, 255, 0.18);
+}
+
+.placeholder {
+  color: #c9c2ae;
+  font-style: italic;
+  margin-top: 120px;
+  font-size: 1rem;
+}
+
+.document-sheet {
+  position: relative;
+  background: var(--paper);
+  max-width: 620px;
+  width: 100%;
+  padding: 44px 52px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+  transform: rotate(var(--tilt, 0deg));
+}
+
+.reading-area.split .document-sheet {
+  padding: 40px 32px 32px;
+}
+
+.pin-toggle {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--paper);
+  border: 1px solid var(--ink-blue);
+  color: var(--ink-blue);
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.pin-toggle:hover {
+  background: var(--ink-blue);
+  color: var(--paper);
+}
+
+.pin-toggle.pinned {
+  border-color: var(--oxblood);
+  color: var(--oxblood);
+}
+
+.pin-toggle.pinned:hover {
+  background: var(--oxblood);
+  color: var(--paper);
+}
+
+.letterhead {
+  text-align: center;
+  border-bottom: 2px solid var(--ink-blue);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.letterhead-org {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: bold;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-blue);
+}
+
+.letterhead-sub {
+  margin: 4px 0 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tobacco);
+}
+
+.doc-meta {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin: 0 0 26px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--manila-dark);
+  color: var(--ink);
+}
+
+.doc-meta-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 8px;
+}
+
+.doc-meta-label {
+  color: var(--tobacco);
+}
+
+.doc-meta-value {
+  color: var(--ink);
+}
+
+.doc-body {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.doc-body p {
+  margin: 0 0 16px;
+  white-space: pre-wrap;
+}
+
+.doc-body p:last-child {
+  margin-bottom: 0;
+}
+
+.doc-body s {
+  color: var(--tobacco);
+  text-decoration-color: var(--oxblood);
+}
+
+/* signature lines read slightly differently from the typed body */
+.doc-body p.signature-line {
+  font-family: var(--script);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--ink-blue);
+  margin-top: 22px;
+}
+
+/* per-type accents */
+.document-sheet[data-type="post-mortem"] .letterhead {
+  border-bottom-color: var(--ink-blue);
+}
+
+.document-sheet[data-type="witness-statement"] .letterhead {
+  border-bottom-color: var(--tobacco);
+}
+
+.document-sheet[data-type="forensic"] .letterhead {
+  border-bottom-color: var(--oxblood);
+}
