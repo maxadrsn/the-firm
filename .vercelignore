@@ -1,0 +1,7 @@
+# Keep the design brief and the case walkthrough off the public site —
+# docs/case-01-expansion.md spells out the solution in full.
+docs
+CLAUDE.md
+.claude
+.git
+.DS_Store

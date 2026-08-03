@@ -2,6 +2,18 @@
   "id": "case-01",
   "title": "The Cheshire Street Killing",
   "opens": "1966-04-12",
+  "solution": {
+    "perpetrator": {
+      "accepted": ["harrow", "desmond harrow", "desmond frank harrow", "d. f. harrow", "d f harrow"]
+    },
+    "method": {
+      "accepted": ["spanner", "adjustable spanner", "blunt instrument", "blunt force", "blow to the head"]
+    },
+    "motive": {
+      "accepted": ["dissolution", "the partnership", "partnership", "money", "debt", "drawings", "embezzlement", "theft from the business", "he was stealing", "to stop the valuation", "cover up", "steal", "stole", "unaccounted", "valuation", "fiddling", "fiddle", "found out"]
+    },
+    "firm_connected": false
+  },
   "documents": [
     {
       "id": "doc-01",
@@ -46,6 +58,8 @@
         { "label": "Ref. No.", "value": "WS/66/015" },
         { "label": "Witness", "value": "Desmond Frank Harrow" },
         { "label": "Address", "value": "22 Wilmot Street, Bethnal Green, E.2" },
+        { "label": "Age", "value": "41" },
+        { "label": "Height", "value": "5 ft 11 in" },
         { "label": "Occupation", "value": "Scrap metal dealer" },
         { "label": "Statement taken by", "value": "D.C. Reeves" },
         { "label": "Date", "value": "12th April 1966" }
@@ -65,7 +79,141 @@
         { "label": "Date received", "value": "12th April 1966" },
         { "label": "Date reported", "value": "15th April 1966" }
       ],
-      "body": "EXHIBITS EXAMINED\n\nExhibit 1: One adjustable spanner, recovered from the floor of the third lock-up garage, Cheshire Street.\nExhibit 2: Scrapings taken from the door bolt of the same lock-up.\nExhibit 3: Blood sample, deceased (see post-mortem report PM/66/0412).\n\nFINGERPRINTS\n\nA single partial print was developed on the handle of Exhibit 1, sufficient for eleven points of comparison. This has been searched against the Criminal Record Office and no match is recorded. The print cannot be attributed to any person until a suspect is put forward for comparison.\n\nBLOOD GROUPING\n\nStaining on the head of Exhibit 1 gives the reactions of blood group O, consistent with the deceased. This finding does not identify the person responsible; it serves only to exclude any person whose own blood group is not O, since group O is shared by a large part of the population.\n\nFIBRES\n\nExhibit 2 yielded several short fibres of navy wool, of a coarse weave consistent with a donkey jacket or similar working coat. No comparison sample has yet been submitted.\n\nCONCLUSION\n\nExhibit 1 is consistent with the weapon described in the post-mortem report. Further comparison work awaits the submission of a suspect for elimination.\n\n(Signed) J. Attwater\nMetropolitan Police Laboratory, Hendon"
+      "body": "EXHIBITS EXAMINED\n\nExhibit 1: One adjustable spanner, recovered from the floor of the third lock-up garage, Cheshire Street.\nExhibit 2: Scrapings taken from the door bolt of the same lock-up.\nExhibit 3: Blood sample, deceased (see post-mortem report PM/66/0412).\n\nFINGERPRINTS\n\nA single partial print was developed on the handle of Exhibit 1, sufficient for eleven points of comparison. This has been searched against the Criminal Record Office and no match is recorded.\n\nAt the request of the investigating officer the partial has further been compared with the file impressions of Leonard James Stipe, CRO 41822/58, whose prints are held. The partial does not correspond to those impressions and Stipe is excluded as its donor.\n\nIt should be borne in mind that a search of the Criminal Record Office can only return a man whose prints are already held. A negative result is not evidence that the donor is innocent; it is evidence only that he has not previously been printed.\n\nBLOOD GROUPING\n\nStaining on the head of Exhibit 1 gives the reactions of blood group O, consistent with the deceased.\n\nExhibit 2, the scrapings from the door bolt, yielded in addition to the fibres reported below a smear of blood giving the reactions of group A. This is not the group of the deceased. The bolt carries a burr on its upper edge and the finding is consistent with the assailant having cut his hand upon it, either on entering or on leaving.\n\nI must repeat the caution proper to this class of evidence. Grouping excludes; it does not identify. Group A is shared by something in the order of four persons in every ten, and no conclusion may be drawn from it beyond the exclusion of those who do not share it.\n\nPERSONS SUBMITTED FOR ELIMINATION\n\nHarrow, D. F. — group A — not excluded by grouping.\nSowerby, A. — group O — excluded by grouping.\nBunce, C. — group A — not excluded by grouping.\nStipe, L. J. — group A — not excluded by grouping.\n\nNo fingerprint impressions have been taken from Harrow, Sowerby or Bunce, none of whom is recorded at the Criminal Record Office. The negative result of the search reported above is therefore consistent with any of these three, and indeed with any man who has not previously been printed.\n\nFIBRES\n\nExhibit 2 yielded several short fibres of navy wool, of a coarse weave consistent with a donkey jacket or similar working coat. Such garments are worn very widely in the scrap and haulage trades and the fibres are of no value in distinguishing one such coat from another.\n\nCONCLUSION\n\nExhibit 1 is consistent with the weapon described in the post-mortem report. I would draw attention to its provenance: the spanner is of the pattern kept in quantity at the yard and was found upon the floor of the lock-up, which is to say it was to hand at the place rather than carried to it.\n\n(Signed) J. Attwater\nMetropolitan Police Laboratory, Hendon"
+    },
+    {
+      "id": "doc-05",
+      "type": "witness-statement",
+      "title": "Statement of witness — N. E. Harrow",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Statement of Witness",
+      "meta": [
+        { "label": "Ref. No.", "value": "WS/66/018" },
+        { "label": "Witness", "value": "Nora Elizabeth Harrow" },
+        { "label": "Address", "value": "22 Wilmot Street, Bethnal Green, E.2" },
+        { "label": "Occupation", "value": "Housewife" },
+        { "label": "Statement taken by", "value": "D.C. Reeves" },
+        { "label": "Date", "value": "14th April 1966" }
+      ],
+      "body": "I, Nora Elizabeth Harrow, of 22 Wilmot Street, E.2, state as follows: —\n\n1. I am the wife of Desmond Frank Harrow and have been married to him twenty-two years.\n\n2. On the evening of Monday the 11th April I was unwell with my head. I took a powder for it and went up to bed at about half past nine.\n\n3. The powder always makes me heavy. I did not hear my husband come in and I could not say what time it was.\n\n4. When I woke at six o'clock he was in the bed beside me.\n\n5. He is a good husband and there is no harm in him. He and Bernie were like brothers to one another.\n\n6. I have told Desmond he ought not to have said I could speak for the time he came home, because I cannot, and I will not say a thing that is not true.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) N. E. Harrow\nWitnessed: D.C. Reeves, 14th April 1966"
+    },
+    {
+      "id": "doc-06",
+      "type": "solicitor's letter",
+      "title": "Letter — Gadsby & Pryce to B. A. Coote",
+      "letterhead": "Gadsby & Pryce",
+      "subhead": "Solicitors",
+      "meta": [
+        { "label": "Address", "value": "41 Bethnal Green Road, London E.2" },
+        { "label": "Telephone", "value": "BIShopsgate 4417" },
+        { "label": "Date", "value": "8th April 1966" },
+        { "label": "Addressed to", "value": "B. A. Coote, Esq., Cheshire Street Yard, Bethnal Green, E.1" },
+        { "label": "Recovered from", "value": "Deceased's office, Cheshire Street Yard, 13th April 1966" }
+      ],
+      "body": "Dear Mr. Coote,\n\nRe: Coote & Harrow, scrap metal merchants\n\nWe acknowledge your instructions of the 5th instant and have now prepared draft notice of dissolution of the partnership for service upon Mr. Harrow.\n\nBefore notice is served we would draw your attention to clause 7 of the deed, under which the retiring partner's share falls to be valued as at the date of notice. On the figures you were good enough to supply, Mr. Harrow's entitlement would be very considerably reduced by the sums drawn upon the business account over the past eighteen months, which upon your own account remain unexplained.\n\nWe would advise most strongly that this matter be raised with your partner before notice is served, and that you take a note of anything he may say upon it.\n\nKindly telephone this office at your convenience to settle the date.\n\nYours faithfully,\n\nR. Gadsby\nGADSBY & PRYCE"
+    },
+    {
+      "id": "doc-07",
+      "type": "witness-statement",
+      "title": "Statement of witness — A. Sowerby",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Statement of Witness",
+      "meta": [
+        { "label": "Ref. No.", "value": "WS/66/019" },
+        { "label": "Witness", "value": "Alfred Sowerby" },
+        { "label": "Address", "value": "9 Morning Lane, Hackney, E.9" },
+        { "label": "Age", "value": "48" },
+        { "label": "Height", "value": "6 ft 0 in" },
+        { "label": "Occupation", "value": "Scrap metal dealer" },
+        { "label": "Statement taken by", "value": "D.C. Reeves" },
+        { "label": "Date", "value": "14th April 1966" }
+      ],
+      "body": "I, Alfred Sowerby, of 9 Morning Lane, E.9, state as follows: —\n\n1. I deal in scrap out of Hackney and have done for twenty years. I knew Bernard Coote in the way of business and I will not pretend I was fond of him.\n\n2. I am told you have heard about the row. I do not deny it and I would not trouble to. In February he had a load of copper away from under me at Silvertown that I had shaken hands on. I called him what he was, in front of the yard, and I would say it again now he is dead.\n\n3. That is a long way from doing murder on a man and you know it as well as I do.\n\n4. On the Monday night I was in the Camel and Artichoke from about eight. Coote was in there with his partner Harrow. I did not speak to either of them and they did not speak to me. I had no wish to.\n\n5. I left before they did, about ten o'clock, and went home. My daughter keeps house for me and she let me in. Ask her.\n\n6. I have never been in the yard on Cheshire Street in my life and I have never been down the lock-ups.\n\n7. You have asked me for a sample of my blood. You can have it and welcome, and I will give you my fingers to print as well if it will get me shut of it, because I have had two officers at my gate since Tuesday and it is doing me no good in the trade.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) A. Sowerby\nWitnessed: D.C. Reeves, 14th April 1966"
+    },
+    {
+      "id": "doc-08",
+      "type": "criminal record office extract",
+      "title": "C.R.O. extract — L. J. Stipe",
+      "letterhead": "Metropolitan Police — Criminal Record Office",
+      "subhead": "Extract of Record",
+      "meta": [
+        { "label": "C.R.O. No.", "value": "41822/58" },
+        { "label": "Name", "value": "Leonard James Stipe" },
+        { "label": "Aliases", "value": "\"Lenny\" Stipe; L. J. Stipp" },
+        { "label": "Age", "value": "36" },
+        { "label": "Height", "value": "6 ft 1 in" },
+        { "label": "Address", "value": "Last known: 8 Quilter Street, Bethnal Green, E.2" },
+        { "label": "Fingerprints", "value": "Held on file since 1958" },
+        { "label": "Extract prepared", "value": "14th April 1966" }
+      ],
+      "body": "PREVIOUS CONVICTIONS\n\n1958 — Demanding money with menaces. Sentenced to eighteen months' imprisonment. (Thames Magistrates' Court committal; tried Inner London Sessions.)\n\n1961 — Wounding. Sentenced to three years' imprisonment. Complainant, a licensee of Hoxton, withdrew his evidence at committal; conviction obtained upon police evidence and the medical report.\n\n1964 — Assault occasioning actual bodily harm. Bound over. Complainant did not attend.\n\nMETHOD\n\nCollection of monies from licensed and unlicensed premises and from small tradesmen, upon a weekly round. Violence is offered at the premises and in the presence of others, the object being that the fact should be known. In no case recorded here has this man been known to attend a premises alone.\n\nKNOWN ASSOCIATES\n\nThe Vasey brothers, of the snooker hall, Vallance Road. Stipe is understood to collect upon their behalf and not upon his own account.\n\nVEHICLE\n\nUse of a grey Ford Zodiac, registration not established. This man does not hold a licence and is habitually driven by another.\n\nNOTE\n\nFingerprints of this man are held on file and are available for comparison upon request.\n\n(Signed) Sgt. W. Doughty\nCriminal Record Office"
+    },
+    {
+      "id": "doc-09",
+      "type": "observation report",
+      "title": "Observation report — Cheshire Street yard",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Observation Report",
+      "meta": [
+        { "label": "Ref. No.", "value": "OB/66/007" },
+        { "label": "Compiled by", "value": "D.S. Iveson" },
+        { "label": "Period covered", "value": "January to April 1966" },
+        { "label": "Date", "value": "15th April 1966" }
+      ],
+      "body": "1. This report is compiled from the observation kept upon collections in the Bethnal Green and Whitechapel divisions since January and is submitted at the request of the investigating officer. It is a record of observation only and is not to be read as evidence against any person named.\n\n2. The scrap yard at Cheshire Street is one of some fourteen premises in this division understood to pay weekly. The round is walked on a Friday. The collection at this yard is recorded as two pounds ten shillings weekly and has been paid without incident since observation began.\n\n3. Payment at this yard has been received on eleven occasions by the man Stipe (see C.R.O. 41822/58) and on three occasions by a man not identified. On every occasion Stipe has been carried to the round in a grey Ford Zodiac and has been driven by another man who remains with the vehicle.\n\n4. A grey Ford Zodiac answering that description was seen standing on Bethnal Green Road at about 7.15 p.m. on the evening of Monday the 11th April, some quarter of a mile from the Cheshire Street yard. It was not seen after that hour and no observation was kept upon it.\n\n5. No arrears are recorded against the Cheshire Street yard and no complaint has been made by either partner in that business.\n\n6. It should be noted for completeness that where premises in this division have fallen into arrears the practice observed has been the breaking of windows or of stock upon the premises, done openly and in daylight, and that no premises upon this round has been the subject of an attack upon the person.\n\n(Signed) W. Iveson, D.S.\nC Division"
+    },
+    {
+      "id": "doc-10",
+      "type": "newspaper clipping",
+      "title": "Press cutting — East London Advertiser",
+      "letterhead": "East London Advertiser",
+      "subhead": "Friday, 15th April 1966",
+      "meta": [
+        { "label": "Page", "value": "1" },
+        { "label": "Cutting filed", "value": "15th April 1966" }
+      ],
+      "body": "SCRAP DEALER SLAIN IN LOCK-UP\n\nPolice probe underworld link\n\nA BETHNAL GREEN scrap metal dealer was found battered to death in a lock-up garage off Cheshire Street on Tuesday morning, and detectives are understood to be examining the killing for the hallmarks of a gangland execution.\n\nMr. Bernard Coote, 44, of Cheshire Street, was discovered by a neighbour beside his own van. He had been struck about the head.\n\nThe Advertiser understands that the yard is among a number of East End businesses said to pay a weekly sum for what is euphemistically termed protection, and it is upon this connection that the investigation is believed to be concentrating.\n\n\"Everyone round here knows how it is done and everyone round here knows who does it,\" one Cheshire Street tradesman told our reporter last night. \"You do not need to be a detective. You need only to be willing to say it.\"\n\nA police spokesman would say only that enquiries were proceeding and that it would be improper to speculate upon a motive at this stage.\n\nMr. Coote, who leaves a widow, had traded in the district for upwards of twenty years and was, said another neighbour, \"a quiet sort of man who kept himself to himself.\"\n\nThe inquest opens at Poplar on Tuesday."
+    },
+    {
+      "id": "doc-11",
+      "type": "police report",
+      "title": "Report of D.C. Reeves — C. Bunce",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Report of Officer",
+      "meta": [
+        { "label": "Ref. No.", "value": "RP/66/022" },
+        { "label": "Officer", "value": "D.C. A. Reeves" },
+        { "label": "Subject", "value": "Cyril Bunce, 3 Pedley Street, Bethnal Green, E.1" },
+        { "label": "Age", "value": "52" },
+        { "label": "Height", "value": "5 ft 4 in" },
+        { "label": "Occupation", "value": "Rag and bone man" },
+        { "label": "Date", "value": "14th April 1966" }
+      ],
+      "body": "1. Acting upon information that the deceased had lent money to a man Bunce, I saw Cyril Bunce at his address on the 13th April and again on the 14th.\n\n2. Bunce admits owing the deceased eleven pounds, lent in two sums in the autumn of last year against a pony and cart. He says he had paid back four pounds of it and that Coote had never pressed him hard for the remainder. He was, he said, ashamed of the debt.\n\n3. Bunce admits being upon Cheshire Street on the night of Monday the 11th April at about eleven o'clock, walking home from his sister's house at Hare Marsh. He says he did not go into the yard and did not see anybody he knew.\n\n4. He can produce nobody to speak for his movements after eleven o'clock. He lives alone. He was distressed at being asked and asked me twice whether he was to be taken in.\n\n5. His sister, Mrs. E. Fowler of Hare Marsh, confirms that he was at her house until about a quarter to eleven and that he left to walk home.\n\n6. Bunce gave a sample of blood without objection. He is described above. I would observe that he is a small man and stooped with it.\n\n7. He has no previous convictions and is not known at the Criminal Record Office.\n\n(Signed) A. Reeves, D.C.\nC Division"
+    }
+  ],
+  "contradictions": [
+    {
+      "a": "doc-03:para-4",
+      "b": "doc-05:para-3",
+      "note": "Harrow says his wife will confirm he was in before eleven; she cannot say when he came in"
+    },
+    {
+      "a": "doc-03:para-5",
+      "b": "doc-06",
+      "note": "Harrow says Coote owed no money and they were on the best of terms; the solicitor's letter shows dissolution proceedings and unexplained drawings"
+    },
+    {
+      "a": "doc-03:para-3",
+      "b": "doc-06",
+      "note": "Harrow says there was no quarrel; Coote had instructed solicitors three days earlier"
+    }
+  ],
+  "red_herrings": [
+    {
+      "doc": "doc-10",
+      "suggests": "firm_connected",
+      "resolved_by": "doc-09"
     }
   ]
 }
