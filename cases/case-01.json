@@ -14,6 +14,113 @@
     },
     "firm_connected": false
   },
+  "characters": [
+    {
+      "id": "coote",
+      "name": "Bernard Arthur Coote",
+      "role": "Deceased",
+      "aliases": ["Bernie"],
+      "age": "44",
+      "height": "5 ft 9 in",
+      "occupation": "Scrap metal dealer, Cheshire Street yard",
+      "address": "Cheshire Street, Bethnal Green, E.1",
+      "blood_group": "O",
+      "cro": "No record",
+      "prints_on_file": "No",
+      "associates": ["Desmond Harrow — partner in the business"],
+      "documents": ["doc-01", "doc-06"]
+    },
+    {
+      "id": "harrow",
+      "name": "Desmond Frank Harrow",
+      "role": "Partner to the deceased",
+      "aliases": ["Des"],
+      "age": "41",
+      "height": "5 ft 11 in",
+      "occupation": "Scrap metal dealer, Cheshire Street yard",
+      "address": "22 Wilmot Street, Bethnal Green, E.2",
+      "blood_group": "A",
+      "cro": "No record",
+      "prints_on_file": "No",
+      "associates": ["Bernard Coote — partner", "Nora Harrow — wife"],
+      "documents": ["doc-03", "doc-04", "doc-05", "doc-06"]
+    },
+    {
+      "id": "stipe",
+      "name": "Leonard James Stipe",
+      "role": "Collector, weekly round",
+      "aliases": ["Lenny Stipe", "L. J. Stipp"],
+      "age": "36",
+      "height": "6 ft 1 in",
+      "occupation": "Collection of monies upon a weekly round",
+      "address": "Last known: 8 Quilter Street, Bethnal Green, E.2",
+      "blood_group": "A",
+      "cro": "41822/58 — menaces 1958; wounding 1961; A.B.H. 1964",
+      "prints_on_file": "Yes — held since 1958",
+      "associates": ["The Vasey brothers, snooker hall, Vallance Road", "Driver, not identified"],
+      "documents": ["doc-04", "doc-08", "doc-09"]
+    },
+    {
+      "id": "sowerby",
+      "name": "Alfred Sowerby",
+      "role": "Rival dealer",
+      "aliases": [],
+      "age": "48",
+      "height": "6 ft 0 in",
+      "occupation": "Scrap metal dealer, Hackney",
+      "address": "9 Morning Lane, Hackney, E.9",
+      "blood_group": "O",
+      "cro": "No record",
+      "prints_on_file": "No",
+      "associates": ["Daughter, keeps house for him"],
+      "documents": ["doc-04", "doc-07"]
+    },
+    {
+      "id": "bunce",
+      "name": "Cyril Bunce",
+      "role": "Debtor to the deceased",
+      "aliases": [],
+      "age": "52",
+      "height": "5 ft 4 in",
+      "occupation": "Rag and bone man",
+      "address": "3 Pedley Street, Bethnal Green, E.1",
+      "blood_group": "A",
+      "cro": "No record",
+      "prints_on_file": "No",
+      "associates": ["Mrs. E. Fowler, Hare Marsh — sister"],
+      "documents": ["doc-04", "doc-11"]
+    },
+    {
+      "id": "pell",
+      "name": "Iris May Pell",
+      "role": "Witness",
+      "aliases": [],
+      "age": "—",
+      "height": "—",
+      "occupation": "Newsagent",
+      "address": "14 Cheshire Street, Bethnal Green, E.1",
+      "blood_group": "—",
+      "cro": "No record",
+      "prints_on_file": "No",
+      "associates": [],
+      "documents": ["doc-02"]
+    },
+    {
+      "id": "nora-harrow",
+      "name": "Nora Elizabeth Harrow",
+      "role": "Witness",
+      "aliases": [],
+      "age": "—",
+      "height": "—",
+      "occupation": "Housewife",
+      "address": "22 Wilmot Street, Bethnal Green, E.2",
+      "blood_group": "—",
+      "cro": "No record",
+      "prints_on_file": "No",
+      "associates": ["Desmond Harrow — husband"],
+      "documents": ["doc-05"]
+    }
+  ],
   "documents": [
     {
       "id": "doc-01",
@@ -30,7 +137,7 @@
         { "label": "Place", "value": "Poplar Mortuary" },
         { "label": "Examined by", "value": "Dr. H. Wren, M.B., Home Office Pathologist" }
       ],
-      "body": "EXTERNAL EXAMINATION\n\nThe body is that of a well-nourished man of the stated age, five feet nine inches in height. Rigor mortis is fully established in the jaw and limbs. Lividity is fixed and consistent with the body having lain on its right side for some hours after death.\n\nThere is a single laceration to the left temporal region, two and one half inches in length, with associated depressed fracture of the underlying bone. The wound edges are ragged rather than clean, consistent with a blow from a heavy object with an irregular striking face rather than a bladed instrument.\n\nNo other injuries of note. The hands show no defence wounds.\n\nINTERNAL EXAMINATION\n\nExtensive subdural haemorrhage beneath the site of the external wound. Cause of death is given as fracture of the skull with laceration of the brain, consistent with a single heavy blow.\n\nStomach contents show a meal partially digested, comprising meat and potato, consistent with a meal taken some three to four hours before death.\n\nTIME OF DEATH\n\nHaving regard to body temperature at the scene, recorded at 6.50 a.m. on the 12th April, and to the state of rigor and lividity, death occurred not before 11 p.m. nor after 1 a.m. on the night of the 11th/12th April.\n\nBLOOD GROUPING\n\nThe deceased is of blood group O.\n\nI certify the above to be a true record of my examination.\n\n(Signed) H. Wren\nHome Office Pathologist"
+      "body": "EXTERNAL EXAMINATION\n\nThe body is that of a well-nourished man of the stated age, five feet nine inches in height.\n\nThere is a single laceration to the left temporal region, two and one half inches in length, with depressed fracture of the bone beneath. The edges are ragged rather than clean, consistent with a blow from a heavy object having an irregular striking face, and not with a bladed instrument.\n\nNo other injuries. The hands show no defence wounds.\n\nCAUSE OF DEATH\n\nFracture of the skull with laceration of the brain, consistent with a single heavy blow.\n\nTIME OF DEATH\n\nHaving regard to body temperature taken at the scene at 6.50 a.m. and to the state of rigor, death occurred not before 11 p.m. nor after 1 a.m. on the night of the 11th/12th April. I can put it no closer than that.\n\nBLOOD GROUPING\n\nThe deceased is of group O.\n\n(Signed) H. Wren\nHome Office Pathologist"
     },
     {
       "id": "doc-02",
@@ -46,7 +153,7 @@
         { "label": "Statement taken by", "value": "D.C. Reeves" },
         { "label": "Date", "value": "12th April 1966" }
       ],
-      "body": "I, Iris May Pell, of 14 Cheshire Street, E.1, state as follows: —\n\n1. I keep the newsagent's shop at the above address and live over the premises with my husband.\n\n2. On the night of Monday the 11th April I went to bed shortly after eleven o'clock. My bedroom window looks out over the lock-up garages at the rear.\n\n3. I was woken by voices, raised in argument, some time after midnight. I could not make out the words. I looked at my clock and it showed twenty past twelve.\n\n4. I went to the window and saw a man leaving the third lock-up along at a run. He did not look back. I could not see his face on account of the dark, but he was of good height and wore a donkey jacket of the kind the scrap men favour.\n\n5. I did not see any motor car. I heard none start up either.\n\n6. I did not think to telephone the police until my husband found Mr. Coote's van still standing outside the following morning and went to look.\n\n7. I have known Mr. Coote to nod to for some years, as a customer, but not otherwise.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) I. M. Pell\nWitnessed: D.C. Reeves, 12th April 1966"
+      "body": "I, Iris May Pell, of 14 Cheshire Street, E.1, state as follows: —\n\n1. I live over the newsagent's shop at the above address. My bedroom window looks out over the lock-up garages at the rear.\n\n2. On the night of Monday the 11th April I was woken by voices, raised in argument. I looked at my clock and it showed twenty past twelve.\n\n3. I went to the window and saw a man leaving the third lock-up along at a run. I could not see his face for the dark, but he was of good height, and he wore a donkey jacket of the kind the scrap men favour.\n\n4. I saw no motor car. I heard none start up either, and I should have heard it.\n\n5. I did not think to telephone the police until the morning, when my husband found Mr. Coote's van standing outside and went to look.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) I. M. Pell\nWitnessed: D.C. Reeves, 12th April 1966"
     },
     {
       "id": "doc-03",
@@ -64,7 +171,7 @@
         { "label": "Statement taken by", "value": "D.C. Reeves" },
         { "label": "Date", "value": "12th April 1966" }
       ],
-      "body": "I, Desmond Frank Harrow, of 22 Wilmot Street, E.2, state as follows: —\n\n1. I have been in partnership with Bernard Coote in the scrap metal business for the past six years, trading out of the yard on Cheshire Street.\n\n2. On the evening of Monday the 11th April I was with Bernie from about seven o'clock. We had a drink at the ~~Bell~~ Camel and Artichoke on Bethnal Green Road and talked over the business as usual.\n\n3. There was no quarrel between us. We are on the best of terms and always have been.\n\n4. I left him at the public house at closing time, half past ten, and walked straight home. My wife will confirm I was indoors before eleven.\n\n5. I know of no one who had cause to wish Bernie harm. He owed no money that I know of, and he was not a man to make enemies.\n\n6. I did not go near the yard or the lock-ups that night.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) D. F. Harrow\nWitnessed: D.C. Reeves, 12th April 1966"
+      "body": "I, Desmond Frank Harrow, of 22 Wilmot Street, E.2, state as follows: —\n\n1. I have been in partnership with Bernard Coote in the scrap metal trade for six years, out of the yard on Cheshire Street.\n\n2. On the evening of Monday the 11th April I was with Bernie from about seven. We had a drink at the ~~Bell~~ Camel and Artichoke and talked over the business as usual.\n\n3. There was no quarrel between us. We are on the best of terms and always have been.\n\n4. I left him at closing time, half past ten, and walked straight home. My wife will confirm I was indoors before eleven.\n\n5. He owed no money that I know of, and I know of nobody who had cause to wish him harm.\n\n6. I did not go near the yard or the lock-ups that night.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) D. F. Harrow\nWitnessed: D.C. Reeves, 12th April 1966"
     },
     {
       "id": "doc-04",
@@ -79,7 +186,7 @@
         { "label": "Date received", "value": "12th April 1966" },
         { "label": "Date reported", "value": "15th April 1966" }
       ],
-      "body": "EXHIBITS EXAMINED\n\nExhibit 1: One adjustable spanner, recovered from the floor of the third lock-up garage, Cheshire Street.\nExhibit 2: Scrapings taken from the door bolt of the same lock-up.\nExhibit 3: Blood sample, deceased (see post-mortem report PM/66/0412).\n\nFINGERPRINTS\n\nA single partial print was developed on the handle of Exhibit 1, sufficient for eleven points of comparison. This has been searched against the Criminal Record Office and no match is recorded.\n\nAt the request of the investigating officer the partial has further been compared with the file impressions of Leonard James Stipe, CRO 41822/58, whose prints are held. The partial does not correspond to those impressions and Stipe is excluded as its donor.\n\nIt should be borne in mind that a search of the Criminal Record Office can only return a man whose prints are already held. A negative result is not evidence that the donor is innocent; it is evidence only that he has not previously been printed.\n\nBLOOD GROUPING\n\nStaining on the head of Exhibit 1 gives the reactions of blood group O, consistent with the deceased.\n\nExhibit 2, the scrapings from the door bolt, yielded in addition to the fibres reported below a smear of blood giving the reactions of group A. This is not the group of the deceased. The bolt carries a burr on its upper edge and the finding is consistent with the assailant having cut his hand upon it, either on entering or on leaving.\n\nI must repeat the caution proper to this class of evidence. Grouping excludes; it does not identify. Group A is shared by something in the order of four persons in every ten, and no conclusion may be drawn from it beyond the exclusion of those who do not share it.\n\nPERSONS SUBMITTED FOR ELIMINATION\n\nHarrow, D. F. — group A — not excluded by grouping.\nSowerby, A. — group O — excluded by grouping.\nBunce, C. — group A — not excluded by grouping.\nStipe, L. J. — group A — not excluded by grouping.\n\nNo fingerprint impressions have been taken from Harrow, Sowerby or Bunce, none of whom is recorded at the Criminal Record Office. The negative result of the search reported above is therefore consistent with any of these three, and indeed with any man who has not previously been printed.\n\nFIBRES\n\nExhibit 2 yielded several short fibres of navy wool, of a coarse weave consistent with a donkey jacket or similar working coat. Such garments are worn very widely in the scrap and haulage trades and the fibres are of no value in distinguishing one such coat from another.\n\nCONCLUSION\n\nExhibit 1 is consistent with the weapon described in the post-mortem report. I would draw attention to its provenance: the spanner is of the pattern kept in quantity at the yard and was found upon the floor of the lock-up, which is to say it was to hand at the place rather than carried to it.\n\n(Signed) J. Attwater\nMetropolitan Police Laboratory, Hendon"
+      "body": "EXHIBITS\n\n1. Adjustable spanner, from the floor of the third lock-up, Cheshire Street.\n2. Scrapings from the door bolt of the same lock-up.\n3. Blood sample, deceased.\n\nFINGERPRINTS\n\nA single partial print was developed on the handle of Exhibit 1, sufficient for eleven points of comparison. Searched against the Criminal Record Office: no match is recorded.\n\nAt the investigating officer's request the partial was further compared with the file impressions of Leonard James Stipe, C.R.O. 41822/58. It does not correspond. Stipe is excluded as its donor.\n\nA search of the Criminal Record Office can return only a man whose prints are already held. A negative result is not evidence of innocence; it is evidence only that the donor has never been printed.\n\nBLOOD GROUPING\n\nExhibit 1: staining on the head gives the reactions of group O, consistent with the deceased.\n\nExhibit 2: in addition to the fibres, a smear giving the reactions of group A. This is not the group of the deceased. The bolt carries a burr upon its upper edge, and the finding is consistent with the assailant having cut his hand upon it.\n\nGrouping excludes; it does not identify. Group A is shared by something in the order of four persons in every ten.\n\nPERSONS SUBMITTED FOR ELIMINATION\n\nHarrow, D. F. — group A — not excluded.\nSowerby, A. — group O — EXCLUDED by grouping.\nBunce, C. — group A — not excluded.\nStipe, L. J. — group A — not excluded by grouping, but excluded by the print above.\n\nNone of Harrow, Sowerby or Bunce is recorded at the Criminal Record Office, and no impressions of them were previously held.\n\nFIBRES\n\nExhibit 2 yielded short fibres of navy wool, of a coarse weave consistent with a donkey jacket. Such coats are worn very widely in the scrap and haulage trades and do not distinguish one man from another.\n\nCONCLUSION\n\nExhibit 1 is consistent with the weapon described in the post-mortem report. I would draw attention to its provenance: the spanner is of the pattern kept in quantity at the yard, and was found upon the floor of the lock-up. It was to hand at the place rather than carried to it.\n\n(Signed) J. Attwater\nMetropolitan Police Laboratory, Hendon"
     },
     {
       "id": "doc-05",
@@ -128,7 +235,7 @@
         { "label": "Statement taken by", "value": "D.C. Reeves" },
         { "label": "Date", "value": "14th April 1966" }
       ],
-      "body": "I, Alfred Sowerby, of 9 Morning Lane, E.9, state as follows: —\n\n1. I deal in scrap out of Hackney and have done for twenty years. I knew Bernard Coote in the way of business and I will not pretend I was fond of him.\n\n2. I am told you have heard about the row. I do not deny it and I would not trouble to. In February he had a load of copper away from under me at Silvertown that I had shaken hands on. I called him what he was, in front of the yard, and I would say it again now he is dead.\n\n3. That is a long way from doing murder on a man and you know it as well as I do.\n\n4. On the Monday night I was in the Camel and Artichoke from about eight. Coote was in there with his partner Harrow. I did not speak to either of them and they did not speak to me. I had no wish to.\n\n5. I left before they did, about ten o'clock, and went home. My daughter keeps house for me and she let me in. Ask her.\n\n6. I have never been in the yard on Cheshire Street in my life and I have never been down the lock-ups.\n\n7. You have asked me for a sample of my blood. You can have it and welcome, and I will give you my fingers to print as well if it will get me shut of it, because I have had two officers at my gate since Tuesday and it is doing me no good in the trade.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) A. Sowerby\nWitnessed: D.C. Reeves, 14th April 1966"
+      "body": "I, Alfred Sowerby, of 9 Morning Lane, E.9, state as follows: —\n\n1. I deal in scrap out of Hackney and have done for twenty years. I knew Bernard Coote in the way of business and I will not pretend I was fond of him.\n\n2. I am told you have heard about the row. I do not deny it. In February he had a load of copper away from under me at Silvertown that I had shaken hands on. I called him what he was, in front of the yard, and I would say it again now he is dead.\n\n3. That is a long way from doing murder on a man, and you know it as well as I do.\n\n4. On the Monday night I was in the Camel and Artichoke from about eight. Coote was in there with his partner Harrow. I did not speak to either of them.\n\n5. I left before they did, about ten, and went home. My daughter keeps house for me and let me in. Ask her.\n\n6. I have never been in the yard on Cheshire Street in my life, nor down the lock-ups.\n\n7. You have asked me for a sample of my blood. You can have it and welcome, and my fingers to print as well, if it will get me shut of it.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) A. Sowerby\nWitnessed: D.C. Reeves, 14th April 1966"
     },
     {
       "id": "doc-08",
@@ -146,7 +253,7 @@
         { "label": "Fingerprints", "value": "Held on file since 1958" },
         { "label": "Extract prepared", "value": "14th April 1966" }
       ],
-      "body": "PREVIOUS CONVICTIONS\n\n1958 — Demanding money with menaces. Sentenced to eighteen months' imprisonment. (Thames Magistrates' Court committal; tried Inner London Sessions.)\n\n1961 — Wounding. Sentenced to three years' imprisonment. Complainant, a licensee of Hoxton, withdrew his evidence at committal; conviction obtained upon police evidence and the medical report.\n\n1964 — Assault occasioning actual bodily harm. Bound over. Complainant did not attend.\n\nMETHOD\n\nCollection of monies from licensed and unlicensed premises and from small tradesmen, upon a weekly round. Violence is offered at the premises and in the presence of others, the object being that the fact should be known. In no case recorded here has this man been known to attend a premises alone.\n\nKNOWN ASSOCIATES\n\nThe Vasey brothers, of the snooker hall, Vallance Road. Stipe is understood to collect upon their behalf and not upon his own account.\n\nVEHICLE\n\nUse of a grey Ford Zodiac, registration not established. This man does not hold a licence and is habitually driven by another.\n\nNOTE\n\nFingerprints of this man are held on file and are available for comparison upon request.\n\n(Signed) Sgt. W. Doughty\nCriminal Record Office"
+      "body": "PREVIOUS CONVICTIONS\n\n1958 — Demanding money with menaces. Eighteen months' imprisonment.\n\n1961 — Wounding. Three years' imprisonment. Complainant, a licensee of Hoxton, withdrew his evidence at committal; conviction obtained upon police evidence and the medical report.\n\n1964 — Assault occasioning actual bodily harm. Bound over. Complainant did not attend.\n\nMETHOD\n\nCollection of monies from licensed and unlicensed premises and from small tradesmen, upon a weekly round. Violence is offered at the premises and in the presence of others, the object being that the fact should be known. In no case recorded here has this man been known to attend a premises alone.\n\nKNOWN ASSOCIATES\n\nThe Vasey brothers, of the snooker hall, Vallance Road. Stipe is understood to collect upon their behalf and not upon his own account.\n\nVEHICLE\n\nUse of a grey Ford Zodiac. This man does not hold a licence and is habitually driven by another.\n\nNOTE\n\nFingerprints of this man are held on file and are available for comparison upon request.\n\n(Signed) Sgt. W. Doughty\nCriminal Record Office"
     },
     {
       "id": "doc-09",
@@ -160,7 +267,7 @@
         { "label": "Period covered", "value": "January to April 1966" },
         { "label": "Date", "value": "15th April 1966" }
       ],
-      "body": "1. This report is compiled from the observation kept upon collections in the Bethnal Green and Whitechapel divisions since January and is submitted at the request of the investigating officer. It is a record of observation only and is not to be read as evidence against any person named.\n\n2. The scrap yard at Cheshire Street is one of some fourteen premises in this division understood to pay weekly. The round is walked on a Friday. The collection at this yard is recorded as two pounds ten shillings weekly and has been paid without incident since observation began.\n\n3. Payment at this yard has been received on eleven occasions by the man Stipe (see C.R.O. 41822/58) and on three occasions by a man not identified. On every occasion Stipe has been carried to the round in a grey Ford Zodiac and has been driven by another man who remains with the vehicle.\n\n4. A grey Ford Zodiac answering that description was seen standing on Bethnal Green Road at about 7.15 p.m. on the evening of Monday the 11th April, some quarter of a mile from the Cheshire Street yard. It was not seen after that hour and no observation was kept upon it.\n\n5. No arrears are recorded against the Cheshire Street yard and no complaint has been made by either partner in that business.\n\n6. It should be noted for completeness that where premises in this division have fallen into arrears the practice observed has been the breaking of windows or of stock upon the premises, done openly and in daylight, and that no premises upon this round has been the subject of an attack upon the person.\n\n(Signed) W. Iveson, D.S.\nC Division"
+      "body": "1. This report is compiled from the observation kept upon collections in this division since January, at the request of the investigating officer. It is a record of observation only and is not to be read as evidence against any person named.\n\n2. The scrap yard at Cheshire Street is one of some fourteen premises understood to pay weekly. The round is walked on a Friday. The collection is recorded as two pounds ten shillings and has been paid without incident since observation began.\n\n3. Payment has been received on eleven occasions by the man Stipe (C.R.O. 41822/58) and on three occasions by a man not identified. On every occasion Stipe was carried to the round in a grey Ford Zodiac, driven by another man who remained with the vehicle.\n\n4. A grey Zodiac answering that description was seen standing on Bethnal Green Road at about 7.15 p.m. on Monday the 11th April, some quarter of a mile from the yard. It was not seen after that hour.\n\n5. No arrears are recorded against the Cheshire Street yard and no complaint has been made by either partner.\n\n6. It should be noted for completeness that where premises upon this round have fallen into arrears, the practice observed has been the breaking of windows or of stock, done openly and in daylight. No premises upon this round has been the subject of an attack upon the person.\n\n(Signed) W. Iveson, D.S.\nC Division"
     },
     {
       "id": "doc-10",
@@ -172,7 +279,7 @@
         { "label": "Page", "value": "1" },
         { "label": "Cutting filed", "value": "15th April 1966" }
       ],
-      "body": "SCRAP DEALER SLAIN IN LOCK-UP\n\nPolice probe underworld link\n\nA BETHNAL GREEN scrap metal dealer was found battered to death in a lock-up garage off Cheshire Street on Tuesday morning, and detectives are understood to be examining the killing for the hallmarks of a gangland execution.\n\nMr. Bernard Coote, 44, of Cheshire Street, was discovered by a neighbour beside his own van. He had been struck about the head.\n\nThe Advertiser understands that the yard is among a number of East End businesses said to pay a weekly sum for what is euphemistically termed protection, and it is upon this connection that the investigation is believed to be concentrating.\n\n\"Everyone round here knows how it is done and everyone round here knows who does it,\" one Cheshire Street tradesman told our reporter last night. \"You do not need to be a detective. You need only to be willing to say it.\"\n\nA police spokesman would say only that enquiries were proceeding and that it would be improper to speculate upon a motive at this stage.\n\nMr. Coote, who leaves a widow, had traded in the district for upwards of twenty years and was, said another neighbour, \"a quiet sort of man who kept himself to himself.\"\n\nThe inquest opens at Poplar on Tuesday."
+      "body": "SCRAP DEALER SLAIN IN LOCK-UP\n\nPolice probe underworld link\n\nA BETHNAL GREEN scrap metal dealer was found battered to death in a lock-up garage off Cheshire Street on Tuesday morning, and detectives are understood to be examining the killing for the hallmarks of a gangland execution.\n\nMr. Bernard Coote, 44, was discovered beside his own van. He had been struck about the head.\n\nThe Advertiser understands that the yard is among a number of East End businesses said to pay a weekly sum for what is euphemistically termed protection, and it is upon this connection that the investigation is believed to be concentrating.\n\n\"Everyone round here knows how it is done, and everyone knows who does it,\" one Cheshire Street tradesman told our reporter last night. \"You do not need to be a detective. You need only be willing to say it.\"\n\nA police spokesman would say only that enquiries were proceeding.\n\nThe inquest opens at Poplar on Tuesday."
     },
     {
       "id": "doc-11",
@@ -189,7 +296,7 @@
         { "label": "Occupation", "value": "Rag and bone man" },
         { "label": "Date", "value": "14th April 1966" }
       ],
-      "body": "1. Acting upon information that the deceased had lent money to a man Bunce, I saw Cyril Bunce at his address on the 13th April and again on the 14th.\n\n2. Bunce admits owing the deceased eleven pounds, lent in two sums in the autumn of last year against a pony and cart. He says he had paid back four pounds of it and that Coote had never pressed him hard for the remainder. He was, he said, ashamed of the debt.\n\n3. Bunce admits being upon Cheshire Street on the night of Monday the 11th April at about eleven o'clock, walking home from his sister's house at Hare Marsh. He says he did not go into the yard and did not see anybody he knew.\n\n4. He can produce nobody to speak for his movements after eleven o'clock. He lives alone. He was distressed at being asked and asked me twice whether he was to be taken in.\n\n5. His sister, Mrs. E. Fowler of Hare Marsh, confirms that he was at her house until about a quarter to eleven and that he left to walk home.\n\n6. Bunce gave a sample of blood without objection. He is described above. I would observe that he is a small man and stooped with it.\n\n7. He has no previous convictions and is not known at the Criminal Record Office.\n\n(Signed) A. Reeves, D.C.\nC Division"
+      "body": "1. Acting upon information that the deceased had lent money to a man Bunce, I saw Cyril Bunce at his address on the 13th April and again on the 14th.\n\n2. Bunce admits owing the deceased eleven pounds, lent last autumn against a pony and cart. He had paid back four pounds of it. He says Coote never pressed him for the remainder and that he was ashamed of the debt.\n\n3. He admits being upon Cheshire Street on the night of Monday the 11th at about eleven o'clock, walking home from his sister's house at Hare Marsh. He says he did not go into the yard.\n\n4. He can produce nobody to speak for his movements after eleven o'clock. He lives alone. He was distressed at being asked and asked me twice whether he was to be taken in.\n\n5. His sister, Mrs. E. Fowler of Hare Marsh, confirms that he was at her house until about a quarter to eleven.\n\n6. Bunce gave a sample of blood without objection. I would observe that he is a small man, five feet four, and stooped with it.\n\n7. He has no previous convictions and is not known at the Criminal Record Office.\n\n(Signed) A. Reeves, D.C.\nC Division"
     }
   ],
   "contradictions": [

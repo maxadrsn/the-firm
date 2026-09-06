@@ -2,17 +2,26 @@
   "use strict";
 
   const docListEl = document.getElementById("doc-list");
+  const indexEntryEl = document.getElementById("index-entry");
   const reportEntryEl = document.getElementById("report-entry");
   const readingAreaEl = document.getElementById("reading-area");
   const pinnedPaneEl = document.getElementById("pinned-pane");
   const browsePaneEl = document.getElementById("browse-pane");
   const caseTitleEl = document.getElementById("case-title");
   const caseOpensEl = document.getElementById("case-opens");
+  const markPopupEl = document.getElementById("mark-popup");
+  const markAddEl = document.getElementById("mark-add");
 
   const TYPE_LABELS = {
     "post-mortem": "Post-mortem report",
     "witness-statement": "Witness statement",
     "forensic": "Forensic report",
+    "solicitor's letter": "Solicitor's letter",
+    "criminal record office extract": "C.R.O. extract",
+    "observation report": "Observation report",
+    "newspaper clipping": "Press cutting",
+    "police report": "Report of officer",
+    "internal-memo": "Internal memo",
   };
 
   const REPORT_FIELDS = [
@@ -37,6 +46,9 @@
   // Accepted variants at or below this length must match on word boundaries.
   const SHORT_VARIANT_LENGTH = 3;
 
+  const INDEX_VIEW = "CARD_INDEX";
+  const REPORT_VIEW = "REPORT_FORM";
+
   const BROWSE_PLACEHOLDER =
     '<p class="placeholder">Select a document from the folder to begin reading.</p>';
 
@@ -47,7 +59,43 @@
     pinnedId: null,
     reportDraft: {},
     reportAttempts: 0,
+    indexQuery: "",
+    // Everything under `saved` is persisted to localStorage.
+    saved: { highlights: {}, bookmarks: {}, notes: "" },
   };
+
+  /* ---------------- persistence ---------------- */
+
+  function saveKey() {
+    return "the-firm:save:" + (state.caseData ? state.caseData.id : "unknown");
+  }
+
+  function loadSaved() {
+    try {
+      const raw = window.localStorage.getItem(saveKey());
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      state.saved = {
+        highlights: parsed.highlights || {},
+        bookmarks: parsed.bookmarks || {},
+        notes: typeof parsed.notes === "string" ? parsed.notes : "",
+      };
+    } catch (err) {
+      // Private windows and blocked site data both throw here. Carry on
+      // unsaved rather than failing to open the case.
+      console.warn("Could not read saved work:", err);
+    }
+  }
+
+  function persist() {
+    try {
+      window.localStorage.setItem(saveKey(), JSON.stringify(state.saved));
+    } catch (err) {
+      console.warn("Could not save work:", err);
+    }
+  }
+
+  /* ---------------- boot ---------------- */
 
   fetch("../cases/case-01.json")
     .then((res) => res.json())
@@ -60,42 +108,60 @@
 
   function renderCase(caseData) {
     state.caseData = caseData;
+    loadSaved();
+
     caseTitleEl.textContent = caseData.title;
     caseOpensEl.textContent = "Opened " + formatDate(caseData.opens);
 
     caseData.documents.forEach((doc) => {
       state.byId[doc.id] = doc;
-
-      const item = document.createElement("li");
-      item.className = "doc-list-item";
-      item.dataset.docId = doc.id;
-
-      const typeLabel = document.createElement("span");
-      typeLabel.className = "doc-type-label";
-      typeLabel.textContent = TYPE_LABELS[doc.type] || doc.type;
-
-      const titleLabel = document.createElement("span");
-      titleLabel.className = "doc-title-label";
-      titleLabel.textContent = doc.title;
-
-      const pinFlag = document.createElement("span");
-      pinFlag.className = "pin-flag";
-      pinFlag.textContent = "Pinned";
-
-      item.appendChild(typeLabel);
-      item.appendChild(titleLabel);
-      item.appendChild(pinFlag);
-      item.addEventListener("click", () => setActive(doc.id));
-
-      docListEl.appendChild(item);
+      docListEl.appendChild(buildListItem(doc));
     });
 
-    reportEntryEl.addEventListener("click", () => setActive("REPORT_FORM"));
+    indexEntryEl.addEventListener("click", () => setActive(INDEX_VIEW));
+    reportEntryEl.addEventListener("click", () => setActive(REPORT_VIEW));
 
     if (caseData.documents.length > 0) {
       setActive(caseData.documents[0].id);
     }
   }
+
+  function buildListItem(doc) {
+    const item = document.createElement("li");
+    item.className = "doc-list-item";
+    item.dataset.docId = doc.id;
+
+    const typeLabel = document.createElement("span");
+    typeLabel.className = "doc-type-label";
+    typeLabel.textContent = TYPE_LABELS[doc.type] || doc.type;
+
+    const titleLabel = document.createElement("span");
+    titleLabel.className = "doc-title-label";
+    titleLabel.textContent = doc.title;
+
+    const flags = document.createElement("span");
+    flags.className = "item-flags";
+
+    const pinFlag = document.createElement("span");
+    pinFlag.className = "pin-flag";
+    pinFlag.textContent = "Pinned";
+
+    const markFlag = document.createElement("span");
+    markFlag.className = "bookmark-flag";
+    markFlag.textContent = "Bookmarked";
+
+    flags.appendChild(pinFlag);
+    flags.appendChild(markFlag);
+
+    item.appendChild(typeLabel);
+    item.appendChild(titleLabel);
+    item.appendChild(flags);
+    item.addEventListener("click", () => setActive(doc.id));
+
+    return item;
+  }
+
+  /* ---------------- navigation ---------------- */
 
   function setActive(id) {
     state.activeId = id;
@@ -107,7 +173,18 @@
     refresh();
   }
 
+  function toggleBookmark(id) {
+    if (state.saved.bookmarks[id]) {
+      delete state.saved.bookmarks[id];
+    } else {
+      state.saved.bookmarks[id] = true;
+    }
+    persist();
+    refresh();
+  }
+
   function refresh() {
+    hideMarkPopup();
     refreshListClasses();
     refreshPinnedPane();
     refreshBrowsePane();
@@ -118,11 +195,13 @@
       const id = item.dataset.docId;
       item.classList.toggle("active", id === state.activeId);
       item.classList.toggle("pinned", id === state.pinnedId);
+      item.classList.toggle("bookmarked", !!state.saved.bookmarks[id]);
     });
 
+    indexEntryEl.classList.toggle("active", state.activeId === INDEX_VIEW);
     reportEntryEl.classList.toggle(
       "active",
-      state.activeId === "REPORT_FORM" || state.activeId === "memo"
+      state.activeId === REPORT_VIEW || state.activeId === "memo"
     );
   }
 
@@ -146,45 +225,397 @@
       return;
     }
 
-    if (state.activeId === "REPORT_FORM") {
+    if (state.activeId === REPORT_VIEW) {
       browsePaneEl.appendChild(buildReportForm());
+      return;
+    }
+
+    if (state.activeId === INDEX_VIEW) {
+      browsePaneEl.appendChild(buildCardIndex());
       return;
     }
 
     browsePaneEl.appendChild(buildDocumentSheet(state.byId[state.activeId]));
   }
 
+  /* ---------------- document sheet ---------------- */
+
   function buildDocumentSheet(doc) {
     const sheet = document.createElement("article");
     sheet.className = "document-sheet";
     sheet.dataset.type = doc.type;
-    sheet.style.setProperty("--tilt", tiltForId(doc.id) + "deg");
+    sheet.dataset.docId = doc.id;
+
+    const tools = document.createElement("div");
+    tools.className = "sheet-tools";
 
     const isPinned = doc.id === state.pinnedId;
+    const isBookmarked = !!state.saved.bookmarks[doc.id];
 
-    const pinToggle = document.createElement("button");
-    pinToggle.type = "button";
-    pinToggle.className = "pin-toggle" + (isPinned ? " pinned" : "");
-    pinToggle.textContent = isPinned ? "Unpin" : "Pin";
-    pinToggle.addEventListener("click", () => togglePin(doc.id));
+    const markBtn = document.createElement("button");
+    markBtn.type = "button";
+    markBtn.className = "sheet-tool" + (isBookmarked ? " on" : "");
+    markBtn.textContent = isBookmarked ? "Bookmarked" : "Bookmark";
+    markBtn.addEventListener("click", () => toggleBookmark(doc.id));
+
+    const pinBtn = document.createElement("button");
+    pinBtn.type = "button";
+    pinBtn.className = "sheet-tool" + (isPinned ? " on" : "");
+    pinBtn.textContent = isPinned ? "Unpin" : "Pin";
+    pinBtn.addEventListener("click", () => togglePin(doc.id));
+
+    tools.appendChild(markBtn);
+    tools.appendChild(pinBtn);
 
     const body = document.createElement("div");
     body.className = "doc-body";
     body.appendChild(renderBody(doc.body));
 
-    sheet.appendChild(pinToggle);
+    sheet.appendChild(tools);
     sheet.appendChild(buildLetterhead(doc.letterhead, doc.subhead));
     sheet.appendChild(buildMetaList(doc.meta));
     sheet.appendChild(body);
 
+    applyHighlights(body, state.saved.highlights[doc.id] || []);
+
     return sheet;
   }
+
+  /* ---------------- highlighting ---------------- */
+
+  function highlightsFor(docId) {
+    if (!state.saved.highlights[docId]) state.saved.highlights[docId] = [];
+    return state.saved.highlights[docId];
+  }
+
+  // Keep stored ranges disjoint, so applying them can never nest one <mark>
+  // inside another.
+  function addHighlight(docId, para, start, end) {
+    const list = highlightsFor(docId);
+    let lo = start;
+    let hi = end;
+
+    const kept = list.filter((h) => {
+      if (h.para !== para || h.end < lo || h.start > hi) return true;
+      lo = Math.min(lo, h.start);
+      hi = Math.max(hi, h.end);
+      return false;
+    });
+
+    kept.push({ para: para, start: lo, end: hi });
+    kept.sort((a, b) => a.para - b.para || a.start - b.start);
+    state.saved.highlights[docId] = kept;
+    persist();
+  }
+
+  function removeHighlight(docId, para, start, end) {
+    const list = highlightsFor(docId);
+    state.saved.highlights[docId] = list.filter(
+      (h) => !(h.para === para && h.start === start && h.end === end)
+    );
+    persist();
+  }
+
+  function applyHighlights(bodyEl, list) {
+    const paras = Array.from(bodyEl.children);
+    list.forEach((h) => {
+      const p = paras[h.para];
+      if (p) markRange(p, h.start, h.end);
+    });
+  }
+
+  // Wrap [start, end) of the paragraph's text in <mark>, walking text nodes so
+  // that inline markup (struck-through corrections, line breaks) survives.
+  function markRange(root, start, end) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const hits = [];
+    let pos = 0;
+
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const len = node.nodeValue.length;
+      const nodeStart = pos;
+      const nodeEnd = pos + len;
+      if (nodeEnd > start && nodeStart < end) {
+        hits.push({
+          node: node,
+          from: Math.max(0, start - nodeStart),
+          to: Math.min(len, end - nodeStart),
+        });
+      }
+      pos = nodeEnd;
+    }
+
+    // Back to front, so earlier offsets stay valid as nodes are split.
+    for (let i = hits.length - 1; i >= 0; i--) {
+      const hit = hits[i];
+      let target = hit.node;
+      if (hit.from > 0) target = target.splitText(hit.from);
+      if (hit.to - hit.from < target.nodeValue.length) {
+        target.splitText(hit.to - hit.from);
+      }
+      const mark = document.createElement("mark");
+      mark.className = "hl";
+      mark.title = "Click to remove this highlight";
+      mark.dataset.start = String(start);
+      mark.dataset.end = String(end);
+      target.parentNode.insertBefore(mark, target);
+      mark.appendChild(target);
+    }
+  }
+
+  function selectionTarget() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.rangeCount === 0) return null;
+
+    const range = sel.getRangeAt(0);
+    let node = range.commonAncestorContainer;
+    if (node.nodeType === Node.TEXT_NODE) node = node.parentNode;
+    if (!node || !node.closest) return null;
+
+    const para = node.closest(".doc-body > p");
+    if (!para) return null;
+    if (!para.contains(range.startContainer) || !para.contains(range.endContainer)) return null;
+
+    const sheet = para.closest(".document-sheet");
+    if (!sheet || !sheet.dataset.docId) return null;
+
+    const text = range.toString();
+    if (!text.trim()) return null;
+
+    const paras = Array.from(para.parentNode.children);
+    const before = range.cloneRange();
+    before.selectNodeContents(para);
+    before.setEnd(range.startContainer, range.startOffset);
+    const start = before.toString().length;
+
+    return {
+      docId: sheet.dataset.docId,
+      para: paras.indexOf(para),
+      start: start,
+      end: start + text.length,
+      rect: range.getBoundingClientRect(),
+    };
+  }
+
+  function showMarkPopup(target) {
+    markPopupEl.hidden = false;
+    const box = markPopupEl.getBoundingClientRect();
+    const left = target.rect.left + target.rect.width / 2 - box.width / 2;
+    const top = target.rect.top - box.height - 8;
+    markPopupEl.style.left = Math.max(8, left) + "px";
+    markPopupEl.style.top = Math.max(8, top) + "px";
+  }
+
+  function hideMarkPopup() {
+    markPopupEl.hidden = true;
+  }
+
+  document.addEventListener("mouseup", (event) => {
+    if (markPopupEl.contains(event.target)) return;
+
+    // Clicking an existing highlight lifts it.
+    const mark = event.target.closest && event.target.closest("mark.hl");
+    if (mark && window.getSelection().isCollapsed) {
+      const sheet = mark.closest(".document-sheet");
+      const para = mark.closest(".doc-body > p");
+      if (sheet && para) {
+        const paras = Array.from(para.parentNode.children);
+        removeHighlight(
+          sheet.dataset.docId,
+          paras.indexOf(para),
+          Number(mark.dataset.start),
+          Number(mark.dataset.end)
+        );
+        refresh();
+        return;
+      }
+    }
+
+    const target = selectionTarget();
+    if (target) {
+      markPopupEl.dataset.payload = JSON.stringify(target);
+      showMarkPopup(target);
+    } else {
+      hideMarkPopup();
+    }
+  });
+
+  markAddEl.addEventListener("click", () => {
+    const payload = markPopupEl.dataset.payload;
+    if (!payload) return;
+    const t = JSON.parse(payload);
+    addHighlight(t.docId, t.para, t.start, t.end);
+    window.getSelection().removeAllRanges();
+    refresh();
+  });
+
+  /* ---------------- card index & notebook ---------------- */
+
+  function buildCardIndex() {
+    const sheet = document.createElement("article");
+    sheet.className = "document-sheet";
+    sheet.dataset.type = "card-index";
+
+    sheet.appendChild(
+      buildLetterhead("Metropolitan Police — Criminal Record Office", "Card Index")
+    );
+
+    const search = document.createElement("div");
+    search.className = "index-search";
+
+    const input = document.createElement("input");
+    input.type = "search";
+    input.className = "index-search-input";
+    input.placeholder = "Search by name, alias, or trade";
+    input.value = state.indexQuery;
+    input.autocomplete = "off";
+    input.addEventListener("input", () => {
+      state.indexQuery = input.value;
+      renderCards(cards, input.value);
+    });
+
+    search.appendChild(input);
+    sheet.appendChild(search);
+
+    const cards = document.createElement("div");
+    cards.className = "index-cards";
+    sheet.appendChild(cards);
+    renderCards(cards, state.indexQuery);
+
+    sheet.appendChild(buildNotebook());
+    return sheet;
+  }
+
+  function renderCards(container, query) {
+    container.innerHTML = "";
+    const characters = (state.caseData && state.caseData.characters) || [];
+    const q = query.trim().toLowerCase();
+
+    const matches = characters.filter((c) => {
+      if (!q) return true;
+      const hay = [c.name, c.role, c.occupation, c.address, c.cro]
+        .concat(c.aliases || [])
+        .join(" ")
+        .toLowerCase();
+      return hay.indexOf(q) !== -1;
+    });
+
+    if (matches.length === 0) {
+      const none = document.createElement("p");
+      none.className = "index-empty";
+      none.textContent = "No card of that name in this drawer.";
+      container.appendChild(none);
+      return;
+    }
+
+    matches.forEach((c) => container.appendChild(buildCard(c)));
+  }
+
+  function buildCard(character) {
+    const card = document.createElement("section");
+    card.className = "index-card";
+
+    const name = document.createElement("h3");
+    name.className = "index-card-name";
+    name.textContent = character.name;
+
+    const role = document.createElement("p");
+    role.className = "index-card-role";
+    role.textContent = character.role;
+
+    card.appendChild(name);
+    card.appendChild(role);
+
+    const rows = [
+      ["Aliases", (character.aliases || []).join("; ") || "None recorded"],
+      ["Age", character.age],
+      ["Height", character.height],
+      ["Occupation", character.occupation],
+      ["Address", character.address],
+      ["Blood group", character.blood_group],
+      ["C.R.O.", character.cro],
+      ["Prints on file", character.prints_on_file],
+      ["Known associates", (character.associates || []).join("; ") || "None recorded"],
+    ];
+
+    const dl = document.createElement("dl");
+    dl.className = "index-card-fields";
+    rows.forEach((row) => {
+      const wrap = document.createElement("div");
+      wrap.className = "index-card-row";
+
+      const dt = document.createElement("dt");
+      dt.textContent = row[0] + ":";
+
+      const dd = document.createElement("dd");
+      dd.textContent = row[1];
+
+      wrap.appendChild(dt);
+      wrap.appendChild(dd);
+      dl.appendChild(wrap);
+    });
+    card.appendChild(dl);
+
+    if ((character.documents || []).length > 0) {
+      const refs = document.createElement("p");
+      refs.className = "index-card-refs";
+
+      const label = document.createElement("span");
+      label.textContent = "See: ";
+      refs.appendChild(label);
+
+      character.documents.forEach((docId) => {
+        const doc = state.byId[docId];
+        if (!doc) return;
+        const link = document.createElement("button");
+        link.type = "button";
+        link.className = "doc-ref";
+        link.textContent = doc.title;
+        link.addEventListener("click", () => setActive(docId));
+        refs.appendChild(link);
+      });
+
+      card.appendChild(refs);
+    }
+
+    return card;
+  }
+
+  function buildNotebook() {
+    const wrap = document.createElement("section");
+    wrap.className = "notebook";
+
+    const heading = document.createElement("h3");
+    heading.className = "notebook-heading";
+    heading.textContent = "Notebook";
+
+    const hint = document.createElement("p");
+    hint.className = "notebook-hint";
+    hint.textContent = "Your own notes. Kept on this machine.";
+
+    const area = document.createElement("textarea");
+    area.className = "notebook-area";
+    area.rows = 10;
+    area.placeholder = "Nothing written yet.";
+    area.value = state.saved.notes;
+    area.addEventListener("input", () => {
+      state.saved.notes = area.value;
+      persist();
+    });
+
+    wrap.appendChild(heading);
+    wrap.appendChild(hint);
+    wrap.appendChild(area);
+    return wrap;
+  }
+
+  /* ---------------- report of investigating officer ---------------- */
 
   function buildReportForm() {
     const sheet = document.createElement("article");
     sheet.className = "document-sheet";
     sheet.dataset.type = "report-form";
-    sheet.style.setProperty("--tilt", tiltForId("report-form") + "deg");
 
     sheet.appendChild(
       buildLetterhead("Metropolitan Police — C Division", "Report of Investigating Officer")
@@ -330,6 +761,8 @@
     };
   }
 
+  /* ---------------- shared pieces ---------------- */
+
   function buildLetterhead(org, sub) {
     const letterhead = document.createElement("header");
     letterhead.className = "letterhead";
@@ -362,7 +795,6 @@
       const value = document.createElement("dd");
       value.className = "doc-meta-value";
       value.textContent = row.value;
-      value.style.margin = "0";
 
       rowEl.appendChild(label);
       rowEl.appendChild(value);
@@ -397,14 +829,6 @@
     return escaped
       .replace(/~~(.+?)~~/g, "<s>$1</s>")
       .replace(/\n/g, "<br>");
-  }
-
-  function tiltForId(id) {
-    let hash = 0;
-    for (let i = 0; i < id.length; i++) {
-      hash = (hash * 31 + id.charCodeAt(i)) % 1000;
-    }
-    return (hash / 1000) * 3 - 1.5;
   }
 
   function formatDate(iso) {

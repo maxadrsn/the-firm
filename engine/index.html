@@ -11,11 +11,17 @@
   <aside class="folder">
     <h1 class="case-title" id="case-title">&nbsp;</h1>
     <p class="case-opens" id="case-opens">&nbsp;</p>
+
     <ul class="doc-list" id="doc-list"></ul>
 
     <div class="folder-divider"></div>
 
-    <button type="button" class="doc-list-item report-entry" id="report-entry">
+    <button type="button" class="doc-list-item tool-entry" id="index-entry">
+      <span class="doc-type-label">Criminal Record Office</span>
+      <span class="doc-title-label">Card index &amp; notebook</span>
+    </button>
+
+    <button type="button" class="doc-list-item tool-entry report-entry" id="report-entry">
       <span class="doc-type-label">Investigating Officer</span>
       <span class="doc-title-label">Report of Investigating Officer</span>
     </button>
@@ -27,6 +33,10 @@
       <p class="placeholder">Select a document from the folder to begin reading.</p>
     </div>
   </main>
+</div>
+
+<div class="mark-popup" id="mark-popup" hidden>
+  <button type="button" id="mark-add">Highlight</button>
 </div>
 
 <script src="main.js"></script>
