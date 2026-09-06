@@ -3,36 +3,72 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Firm — Case Documents</title>
+<title>The Firm — C Division</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app">
-  <aside class="folder">
-    <h1 class="case-title" id="case-title">&nbsp;</h1>
-    <p class="case-opens" id="case-opens">&nbsp;</p>
+<div class="desk" id="desk">
+
+  <div class="lamplight" aria-hidden="true"></div>
+
+  <aside class="case-folder">
+    <div class="folder-head">
+      <p class="folder-stamp">C Division</p>
+      <h1 class="case-title" id="case-title">&nbsp;</h1>
+      <p class="case-opens" id="case-opens">&nbsp;</p>
+    </div>
 
     <ul class="doc-list" id="doc-list"></ul>
 
-    <div class="folder-divider"></div>
-
-    <button type="button" class="doc-list-item tool-entry" id="index-entry">
-      <span class="doc-type-label">Criminal Record Office</span>
-      <span class="doc-title-label">Card index &amp; notebook</span>
-    </button>
-
-    <button type="button" class="doc-list-item tool-entry report-entry" id="report-entry">
+    <button type="button" class="doc-list-item report-entry" id="report-entry">
       <span class="doc-type-label">Investigating Officer</span>
       <span class="doc-title-label">Report of Investigating Officer</span>
     </button>
+
+    <div class="desk-calendar" id="desk-calendar" aria-hidden="true">
+      <span class="cal-month" id="cal-month">APR</span>
+      <span class="cal-day" id="cal-day">12</span>
+      <span class="cal-year" id="cal-year">1966</span>
+    </div>
   </aside>
 
-  <main class="reading-area" id="reading-area">
+  <main class="blotter" id="reading-area">
     <div class="reading-pane pinned-pane" id="pinned-pane"></div>
     <div class="reading-pane browse-pane" id="browse-pane">
-      <p class="placeholder">Select a document from the folder to begin reading.</p>
+      <p class="placeholder">Take a document from the folder.</p>
     </div>
   </main>
+
+  <div class="teacup" aria-hidden="true"><span class="tea"></span></div>
+  <div class="ashtray" aria-hidden="true"><span class="stub"></span><span class="stub two"></span></div>
+
+  <section class="index-drawer" id="index-drawer">
+    <button type="button" class="drawer-handle" id="drawer-handle">
+      <span class="drawer-handle-label">Card Index &amp; Notebook</span>
+      <span class="drawer-handle-state" id="drawer-state">Open</span>
+    </button>
+
+    <div class="drawer-body" id="drawer-body">
+      <div class="drawer-scroll">
+        <p class="drawer-org">Metropolitan Police — Criminal Record Office</p>
+
+        <div class="index-search">
+          <input type="search" class="index-search-input" id="index-search"
+                 placeholder="Search by name, alias, or trade" autocomplete="off">
+        </div>
+
+        <div class="index-cards" id="index-cards"></div>
+
+        <section class="notebook">
+          <h3 class="notebook-heading">Notebook</h3>
+          <p class="notebook-hint">Your own notes. Kept on this machine.</p>
+          <textarea class="notebook-area" id="notebook-area" rows="9"
+                    placeholder="Nothing written yet."></textarea>
+        </section>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <div class="mark-popup" id="mark-popup" hidden>

@@ -1,16 +1,27 @@
 (function () {
   "use strict";
 
+  const deskEl = document.getElementById("desk");
   const docListEl = document.getElementById("doc-list");
-  const indexEntryEl = document.getElementById("index-entry");
   const reportEntryEl = document.getElementById("report-entry");
-  const readingAreaEl = document.getElementById("reading-area");
+  const blotterEl = document.getElementById("reading-area");
   const pinnedPaneEl = document.getElementById("pinned-pane");
   const browsePaneEl = document.getElementById("browse-pane");
   const caseTitleEl = document.getElementById("case-title");
   const caseOpensEl = document.getElementById("case-opens");
   const markPopupEl = document.getElementById("mark-popup");
   const markAddEl = document.getElementById("mark-add");
+
+  const drawerEl = document.getElementById("index-drawer");
+  const drawerHandleEl = document.getElementById("drawer-handle");
+  const drawerStateEl = document.getElementById("drawer-state");
+  const indexSearchEl = document.getElementById("index-search");
+  const indexCardsEl = document.getElementById("index-cards");
+  const notebookEl = document.getElementById("notebook-area");
+
+  const calMonthEl = document.getElementById("cal-month");
+  const calDayEl = document.getElementById("cal-day");
+  const calYearEl = document.getElementById("cal-year");
 
   const TYPE_LABELS = {
     "post-mortem": "Post-mortem report",
@@ -23,6 +34,11 @@
     "police report": "Report of officer",
     "internal-memo": "Internal memo",
   };
+
+  const MONTHS_SHORT = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+                        "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const MONTHS = ["January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November", "December"];
 
   const REPORT_FIELDS = [
     { key: "perpetrator", number: 1, label: "Person responsible" },
@@ -43,14 +59,10 @@
     "not connected", "no connection", "unconnected", "not the firm", "unrelated",
   ];
 
-  // Accepted variants at or below this length must match on word boundaries.
   const SHORT_VARIANT_LENGTH = 3;
-
-  const INDEX_VIEW = "CARD_INDEX";
   const REPORT_VIEW = "REPORT_FORM";
-
   const BROWSE_PLACEHOLDER =
-    '<p class="placeholder">Select a document from the folder to begin reading.</p>';
+    '<p class="placeholder">Take a document from the folder.</p>';
 
   const state = {
     caseData: null,
@@ -61,7 +73,7 @@
     reportAttempts: 0,
     indexQuery: "",
     // Everything under `saved` is persisted to localStorage.
-    saved: { highlights: {}, bookmarks: {}, notes: "" },
+    saved: { highlights: {}, bookmarks: {}, notes: "", drawerOpen: false },
   };
 
   /* ---------------- persistence ---------------- */
@@ -79,6 +91,7 @@
         highlights: parsed.highlights || {},
         bookmarks: parsed.bookmarks || {},
         notes: typeof parsed.notes === "string" ? parsed.notes : "",
+        drawerOpen: !!parsed.drawerOpen,
       };
     } catch (err) {
       // Private windows and blocked site data both throw here. Carry on
@@ -112,18 +125,45 @@
 
     caseTitleEl.textContent = caseData.title;
     caseOpensEl.textContent = "Opened " + formatDate(caseData.opens);
+    setCalendar(caseData.opens);
 
     caseData.documents.forEach((doc) => {
       state.byId[doc.id] = doc;
       docListEl.appendChild(buildListItem(doc));
     });
 
-    indexEntryEl.addEventListener("click", () => setActive(INDEX_VIEW));
     reportEntryEl.addEventListener("click", () => setActive(REPORT_VIEW));
+
+    drawerHandleEl.addEventListener("click", () => {
+      state.saved.drawerOpen = !state.saved.drawerOpen;
+      persist();
+      refreshDrawer();
+    });
+
+    indexSearchEl.addEventListener("input", () => {
+      state.indexQuery = indexSearchEl.value;
+      renderCards();
+    });
+
+    notebookEl.value = state.saved.notes;
+    notebookEl.addEventListener("input", () => {
+      state.saved.notes = notebookEl.value;
+      persist();
+    });
+
+    renderCards();
+    refreshDrawer();
 
     if (caseData.documents.length > 0) {
       setActive(caseData.documents[0].id);
     }
+  }
+
+  function setCalendar(iso) {
+    const [year, month, day] = iso.split("-").map(Number);
+    calMonthEl.textContent = MONTHS_SHORT[month - 1];
+    calDayEl.textContent = String(day);
+    calYearEl.textContent = String(year);
   }
 
   function buildListItem(doc) {
@@ -190,6 +230,13 @@
     refreshBrowsePane();
   }
 
+  function refreshDrawer() {
+    const open = state.saved.drawerOpen;
+    drawerEl.classList.toggle("open", open);
+    deskEl.classList.toggle("drawer-open", open);
+    drawerStateEl.textContent = open ? "Close" : "Open";
+  }
+
   function refreshListClasses() {
     docListEl.querySelectorAll(".doc-list-item").forEach((item) => {
       const id = item.dataset.docId;
@@ -198,7 +245,6 @@
       item.classList.toggle("bookmarked", !!state.saved.bookmarks[id]);
     });
 
-    indexEntryEl.classList.toggle("active", state.activeId === INDEX_VIEW);
     reportEntryEl.classList.toggle(
       "active",
       state.activeId === REPORT_VIEW || state.activeId === "memo"
@@ -209,11 +255,11 @@
     pinnedPaneEl.innerHTML = "";
 
     if (!state.pinnedId) {
-      readingAreaEl.classList.remove("split");
+      blotterEl.classList.remove("split");
       return;
     }
 
-    readingAreaEl.classList.add("split");
+    blotterEl.classList.add("split");
     pinnedPaneEl.appendChild(buildDocumentSheet(state.byId[state.pinnedId]));
   }
 
@@ -227,11 +273,6 @@
 
     if (state.activeId === REPORT_VIEW) {
       browsePaneEl.appendChild(buildReportForm());
-      return;
-    }
-
-    if (state.activeId === INDEX_VIEW) {
-      browsePaneEl.appendChild(buildCardIndex());
       return;
     }
 
@@ -450,47 +491,12 @@
     refresh();
   });
 
-  /* ---------------- card index & notebook ---------------- */
+  /* ---------------- card index ---------------- */
 
-  function buildCardIndex() {
-    const sheet = document.createElement("article");
-    sheet.className = "document-sheet";
-    sheet.dataset.type = "card-index";
-
-    sheet.appendChild(
-      buildLetterhead("Metropolitan Police — Criminal Record Office", "Card Index")
-    );
-
-    const search = document.createElement("div");
-    search.className = "index-search";
-
-    const input = document.createElement("input");
-    input.type = "search";
-    input.className = "index-search-input";
-    input.placeholder = "Search by name, alias, or trade";
-    input.value = state.indexQuery;
-    input.autocomplete = "off";
-    input.addEventListener("input", () => {
-      state.indexQuery = input.value;
-      renderCards(cards, input.value);
-    });
-
-    search.appendChild(input);
-    sheet.appendChild(search);
-
-    const cards = document.createElement("div");
-    cards.className = "index-cards";
-    sheet.appendChild(cards);
-    renderCards(cards, state.indexQuery);
-
-    sheet.appendChild(buildNotebook());
-    return sheet;
-  }
-
-  function renderCards(container, query) {
-    container.innerHTML = "";
+  function renderCards() {
+    indexCardsEl.innerHTML = "";
     const characters = (state.caseData && state.caseData.characters) || [];
-    const q = query.trim().toLowerCase();
+    const q = state.indexQuery.trim().toLowerCase();
 
     const matches = characters.filter((c) => {
       if (!q) return true;
@@ -505,11 +511,11 @@
       const none = document.createElement("p");
       none.className = "index-empty";
       none.textContent = "No card of that name in this drawer.";
-      container.appendChild(none);
+      indexCardsEl.appendChild(none);
       return;
     }
 
-    matches.forEach((c) => container.appendChild(buildCard(c)));
+    matches.forEach((c) => indexCardsEl.appendChild(buildCard(c)));
   }
 
   function buildCard(character) {
@@ -536,7 +542,7 @@
       ["Blood group", character.blood_group],
       ["C.R.O.", character.cro],
       ["Prints on file", character.prints_on_file],
-      ["Known associates", (character.associates || []).join("; ") || "None recorded"],
+      ["Associates", (character.associates || []).join("; ") || "None recorded"],
     ];
 
     const dl = document.createElement("dl");
@@ -561,10 +567,6 @@
       const refs = document.createElement("p");
       refs.className = "index-card-refs";
 
-      const label = document.createElement("span");
-      label.textContent = "See: ";
-      refs.appendChild(label);
-
       character.documents.forEach((docId) => {
         const doc = state.byId[docId];
         if (!doc) return;
@@ -572,6 +574,7 @@
         link.type = "button";
         link.className = "doc-ref";
         link.textContent = doc.title;
+        // The drawer stays open, so a record can be read beside its document.
         link.addEventListener("click", () => setActive(docId));
         refs.appendChild(link);
       });
@@ -580,34 +583,6 @@
     }
 
     return card;
-  }
-
-  function buildNotebook() {
-    const wrap = document.createElement("section");
-    wrap.className = "notebook";
-
-    const heading = document.createElement("h3");
-    heading.className = "notebook-heading";
-    heading.textContent = "Notebook";
-
-    const hint = document.createElement("p");
-    hint.className = "notebook-hint";
-    hint.textContent = "Your own notes. Kept on this machine.";
-
-    const area = document.createElement("textarea");
-    area.className = "notebook-area";
-    area.rows = 10;
-    area.placeholder = "Nothing written yet.";
-    area.value = state.saved.notes;
-    area.addEventListener("input", () => {
-      state.saved.notes = area.value;
-      persist();
-    });
-
-    wrap.appendChild(heading);
-    wrap.appendChild(hint);
-    wrap.appendChild(area);
-    return wrap;
   }
 
   /* ---------------- report of investigating officer ---------------- */
@@ -833,10 +808,6 @@
 
   function formatDate(iso) {
     const [year, month, day] = iso.split("-").map(Number);
-    const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December",
-    ];
-    return day + " " + months[month - 1] + " " + year;
+    return day + " " + MONTHS[month - 1] + " " + year;
   }
 })();
