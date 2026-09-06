@@ -4,13 +4,44 @@
   "opens": "1966-04-12",
   "solution": {
     "perpetrator": {
-      "accepted": ["harrow", "desmond harrow", "desmond frank harrow", "d. f. harrow", "d f harrow"]
+      "accepted": [
+        "harrow",
+        "desmond harrow",
+        "desmond frank harrow",
+        "d. f. harrow",
+        "d f harrow"
+      ]
     },
     "method": {
-      "accepted": ["spanner", "adjustable spanner", "blunt instrument", "blunt force", "blow to the head"]
+      "accepted": [
+        "spanner",
+        "adjustable spanner",
+        "blunt instrument",
+        "blunt force",
+        "blow to the head"
+      ]
     },
     "motive": {
-      "accepted": ["dissolution", "the partnership", "partnership", "money", "debt", "drawings", "embezzlement", "theft from the business", "he was stealing", "to stop the valuation", "cover up", "steal", "stole", "unaccounted", "valuation", "fiddling", "fiddle", "found out"]
+      "accepted": [
+        "dissolution",
+        "the partnership",
+        "partnership",
+        "money",
+        "debt",
+        "drawings",
+        "embezzlement",
+        "theft from the business",
+        "he was stealing",
+        "to stop the valuation",
+        "cover up",
+        "steal",
+        "stole",
+        "unaccounted",
+        "valuation",
+        "fiddling",
+        "fiddle",
+        "found out"
+      ]
     },
     "firm_connected": false
   },
@@ -19,7 +50,9 @@
       "id": "coote",
       "name": "Bernard Arthur Coote",
       "role": "Deceased",
-      "aliases": ["Bernie"],
+      "aliases": [
+        "Bernie"
+      ],
       "age": "44",
       "height": "5 ft 9 in",
       "occupation": "Scrap metal dealer, Cheshire Street yard",
@@ -27,14 +60,21 @@
       "blood_group": "O",
       "cro": "No record",
       "prints_on_file": "No",
-      "associates": ["Desmond Harrow — partner in the business"],
-      "documents": ["doc-01", "doc-06"]
+      "associates": [
+        "Desmond Harrow — partner in the business"
+      ],
+      "documents": [
+        "doc-01",
+        "doc-06"
+      ]
     },
     {
       "id": "harrow",
       "name": "Desmond Frank Harrow",
       "role": "Partner to the deceased",
-      "aliases": ["Des"],
+      "aliases": [
+        "Des"
+      ],
       "age": "41",
       "height": "5 ft 11 in",
       "occupation": "Scrap metal dealer, Cheshire Street yard",
@@ -42,14 +82,25 @@
       "blood_group": "A",
       "cro": "No record",
       "prints_on_file": "No",
-      "associates": ["Bernard Coote — partner", "Nora Harrow — wife"],
-      "documents": ["doc-03", "doc-04", "doc-05", "doc-06"]
+      "associates": [
+        "Bernard Coote — partner",
+        "Nora Harrow — wife"
+      ],
+      "documents": [
+        "doc-03",
+        "doc-04",
+        "doc-05",
+        "doc-06"
+      ]
     },
     {
       "id": "stipe",
       "name": "Leonard James Stipe",
       "role": "Collector, weekly round",
-      "aliases": ["Lenny Stipe", "L. J. Stipp"],
+      "aliases": [
+        "Lenny Stipe",
+        "L. J. Stipp"
+      ],
       "age": "36",
       "height": "6 ft 1 in",
       "occupation": "Collection of monies upon a weekly round",
@@ -57,8 +108,15 @@
       "blood_group": "A",
       "cro": "41822/58 — menaces 1958; wounding 1961; A.B.H. 1964",
       "prints_on_file": "Yes — held since 1958",
-      "associates": ["The Vasey brothers, snooker hall, Vallance Road", "Driver, not identified"],
-      "documents": ["doc-04", "doc-08", "doc-09"]
+      "associates": [
+        "The Vasey brothers, snooker hall, Vallance Road",
+        "Driver, not identified"
+      ],
+      "documents": [
+        "doc-04",
+        "doc-08",
+        "doc-09"
+      ]
     },
     {
       "id": "sowerby",
@@ -72,8 +130,13 @@
       "blood_group": "O",
       "cro": "No record",
       "prints_on_file": "No",
-      "associates": ["Daughter, keeps house for him"],
-      "documents": ["doc-04", "doc-07"]
+      "associates": [
+        "Daughter, keeps house for him"
+      ],
+      "documents": [
+        "doc-04",
+        "doc-07"
+      ]
     },
     {
       "id": "bunce",
@@ -87,8 +150,13 @@
       "blood_group": "A",
       "cro": "No record",
       "prints_on_file": "No",
-      "associates": ["Mrs. E. Fowler, Hare Marsh — sister"],
-      "documents": ["doc-04", "doc-11"]
+      "associates": [
+        "Mrs. E. Fowler, Hare Marsh — sister"
+      ],
+      "documents": [
+        "doc-04",
+        "doc-11"
+      ]
     },
     {
       "id": "pell",
@@ -103,7 +171,9 @@
       "cro": "No record",
       "prints_on_file": "No",
       "associates": [],
-      "documents": ["doc-02"]
+      "documents": [
+        "doc-02"
+      ]
     },
     {
       "id": "nora-harrow",
@@ -117,8 +187,12 @@
       "blood_group": "—",
       "cro": "No record",
       "prints_on_file": "No",
-      "associates": ["Desmond Harrow — husband"],
-      "documents": ["doc-05"]
+      "associates": [
+        "Desmond Harrow — husband"
+      ],
+      "documents": [
+        "doc-05"
+      ]
     }
   ],
   "documents": [
@@ -129,13 +203,34 @@
       "letterhead": "H.M. Coroner's Court — Tower Hamlets District",
       "subhead": "Post-mortem Examination",
       "meta": [
-        { "label": "Ref. No.", "value": "PM/66/0412" },
-        { "label": "Deceased", "value": "Bernard Arthur Coote" },
-        { "label": "Age", "value": "44" },
-        { "label": "Occupation", "value": "Scrap metal dealer" },
-        { "label": "Date of examination", "value": "13th April 1966" },
-        { "label": "Place", "value": "Poplar Mortuary" },
-        { "label": "Examined by", "value": "Dr. H. Wren, M.B., Home Office Pathologist" }
+        {
+          "label": "Ref. No.",
+          "value": "PM/66/0412"
+        },
+        {
+          "label": "Deceased",
+          "value": "Bernard Arthur Coote"
+        },
+        {
+          "label": "Age",
+          "value": "44"
+        },
+        {
+          "label": "Occupation",
+          "value": "Scrap metal dealer"
+        },
+        {
+          "label": "Date of examination",
+          "value": "13th April 1966"
+        },
+        {
+          "label": "Place",
+          "value": "Poplar Mortuary"
+        },
+        {
+          "label": "Examined by",
+          "value": "Dr. H. Wren, M.B., Home Office Pathologist"
+        }
       ],
       "body": "EXTERNAL EXAMINATION\n\nThe body is that of a well-nourished man of the stated age, five feet nine inches in height.\n\nThere is a single laceration to the left temporal region, two and one half inches in length, with depressed fracture of the bone beneath. The edges are ragged rather than clean, consistent with a blow from a heavy object having an irregular striking face, and not with a bladed instrument.\n\nNo other injuries. The hands show no defence wounds.\n\nCAUSE OF DEATH\n\nFracture of the skull with laceration of the brain, consistent with a single heavy blow.\n\nTIME OF DEATH\n\nHaving regard to body temperature taken at the scene at 6.50 a.m. and to the state of rigor, death occurred not before 11 p.m. nor after 1 a.m. on the night of the 11th/12th April. I can put it no closer than that.\n\nBLOOD GROUPING\n\nThe deceased is of group O.\n\n(Signed) H. Wren\nHome Office Pathologist"
     },
@@ -146,12 +241,30 @@
       "letterhead": "Metropolitan Police — C Division",
       "subhead": "Statement of Witness",
       "meta": [
-        { "label": "Ref. No.", "value": "WS/66/014" },
-        { "label": "Witness", "value": "Iris May Pell" },
-        { "label": "Address", "value": "14 Cheshire Street, Bethnal Green, E.1" },
-        { "label": "Occupation", "value": "Newsagent" },
-        { "label": "Statement taken by", "value": "D.C. Reeves" },
-        { "label": "Date", "value": "12th April 1966" }
+        {
+          "label": "Ref. No.",
+          "value": "WS/66/014"
+        },
+        {
+          "label": "Witness",
+          "value": "Iris May Pell"
+        },
+        {
+          "label": "Address",
+          "value": "14 Cheshire Street, Bethnal Green, E.1"
+        },
+        {
+          "label": "Occupation",
+          "value": "Newsagent"
+        },
+        {
+          "label": "Statement taken by",
+          "value": "D.C. Reeves"
+        },
+        {
+          "label": "Date",
+          "value": "12th April 1966"
+        }
       ],
       "body": "I, Iris May Pell, of 14 Cheshire Street, E.1, state as follows: —\n\n1. I live over the newsagent's shop at the above address. My bedroom window looks out over the lock-up garages at the rear.\n\n2. On the night of Monday the 11th April I was woken by voices, raised in argument. I looked at my clock and it showed twenty past twelve.\n\n3. I went to the window and saw a man leaving the third lock-up along at a run. I could not see his face for the dark, but he was of good height, and he wore a donkey jacket of the kind the scrap men favour.\n\n4. I saw no motor car. I heard none start up either, and I should have heard it.\n\n5. I did not think to telephone the police until the morning, when my husband found Mr. Coote's van standing outside and went to look.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) I. M. Pell\nWitnessed: D.C. Reeves, 12th April 1966"
     },
@@ -162,14 +275,38 @@
       "letterhead": "Metropolitan Police — C Division",
       "subhead": "Statement of Witness",
       "meta": [
-        { "label": "Ref. No.", "value": "WS/66/015" },
-        { "label": "Witness", "value": "Desmond Frank Harrow" },
-        { "label": "Address", "value": "22 Wilmot Street, Bethnal Green, E.2" },
-        { "label": "Age", "value": "41" },
-        { "label": "Height", "value": "5 ft 11 in" },
-        { "label": "Occupation", "value": "Scrap metal dealer" },
-        { "label": "Statement taken by", "value": "D.C. Reeves" },
-        { "label": "Date", "value": "12th April 1966" }
+        {
+          "label": "Ref. No.",
+          "value": "WS/66/015"
+        },
+        {
+          "label": "Witness",
+          "value": "Desmond Frank Harrow"
+        },
+        {
+          "label": "Address",
+          "value": "22 Wilmot Street, Bethnal Green, E.2"
+        },
+        {
+          "label": "Age",
+          "value": "41"
+        },
+        {
+          "label": "Height",
+          "value": "5 ft 11 in"
+        },
+        {
+          "label": "Occupation",
+          "value": "Scrap metal dealer"
+        },
+        {
+          "label": "Statement taken by",
+          "value": "D.C. Reeves"
+        },
+        {
+          "label": "Date",
+          "value": "12th April 1966"
+        }
       ],
       "body": "I, Desmond Frank Harrow, of 22 Wilmot Street, E.2, state as follows: —\n\n1. I have been in partnership with Bernard Coote in the scrap metal trade for six years, out of the yard on Cheshire Street.\n\n2. On the evening of Monday the 11th April I was with Bernie from about seven. We had a drink at the ~~Bell~~ Camel and Artichoke and talked over the business as usual.\n\n3. There was no quarrel between us. We are on the best of terms and always have been.\n\n4. I left him at closing time, half past ten, and walked straight home. My wife will confirm I was indoors before eleven.\n\n5. He owed no money that I know of, and I know of nobody who had cause to wish him harm.\n\n6. I did not go near the yard or the lock-ups that night.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) D. F. Harrow\nWitnessed: D.C. Reeves, 12th April 1966"
     },
@@ -180,11 +317,26 @@
       "letterhead": "Metropolitan Police Laboratory — Hendon",
       "subhead": "Forensic Report",
       "meta": [
-        { "label": "Ref. No.", "value": "FR/66/031" },
-        { "label": "Submitted by", "value": "D.I., C Division" },
-        { "label": "Examined by", "value": "J. Attwater, Metropolitan Police Laboratory" },
-        { "label": "Date received", "value": "12th April 1966" },
-        { "label": "Date reported", "value": "15th April 1966" }
+        {
+          "label": "Ref. No.",
+          "value": "FR/66/031"
+        },
+        {
+          "label": "Submitted by",
+          "value": "D.I., C Division"
+        },
+        {
+          "label": "Examined by",
+          "value": "J. Attwater, Metropolitan Police Laboratory"
+        },
+        {
+          "label": "Date received",
+          "value": "12th April 1966"
+        },
+        {
+          "label": "Date reported",
+          "value": "15th April 1966"
+        }
       ],
       "body": "EXHIBITS\n\n1. Adjustable spanner, from the floor of the third lock-up, Cheshire Street.\n2. Scrapings from the door bolt of the same lock-up.\n3. Blood sample, deceased.\n\nFINGERPRINTS\n\nA single partial print was developed on the handle of Exhibit 1, sufficient for eleven points of comparison. Searched against the Criminal Record Office: no match is recorded.\n\nAt the investigating officer's request the partial was further compared with the file impressions of Leonard James Stipe, C.R.O. 41822/58. It does not correspond. Stipe is excluded as its donor.\n\nA search of the Criminal Record Office can return only a man whose prints are already held. A negative result is not evidence of innocence; it is evidence only that the donor has never been printed.\n\nBLOOD GROUPING\n\nExhibit 1: staining on the head gives the reactions of group O, consistent with the deceased.\n\nExhibit 2: in addition to the fibres, a smear giving the reactions of group A. This is not the group of the deceased. The bolt carries a burr upon its upper edge, and the finding is consistent with the assailant having cut his hand upon it.\n\nGrouping excludes; it does not identify. Group A is shared by something in the order of four persons in every ten.\n\nPERSONS SUBMITTED FOR ELIMINATION\n\nHarrow, D. F. — group A — not excluded.\nSowerby, A. — group O — EXCLUDED by grouping.\nBunce, C. — group A — not excluded.\nStipe, L. J. — group A — not excluded by grouping, but excluded by the print above.\n\nNone of Harrow, Sowerby or Bunce is recorded at the Criminal Record Office, and no impressions of them were previously held.\n\nFIBRES\n\nExhibit 2 yielded short fibres of navy wool, of a coarse weave consistent with a donkey jacket. Such coats are worn very widely in the scrap and haulage trades and do not distinguish one man from another.\n\nCONCLUSION\n\nExhibit 1 is consistent with the weapon described in the post-mortem report. I would draw attention to its provenance: the spanner is of the pattern kept in quantity at the yard, and was found upon the floor of the lock-up. It was to hand at the place rather than carried to it.\n\n(Signed) J. Attwater\nMetropolitan Police Laboratory, Hendon"
     },
@@ -195,12 +347,30 @@
       "letterhead": "Metropolitan Police — C Division",
       "subhead": "Statement of Witness",
       "meta": [
-        { "label": "Ref. No.", "value": "WS/66/018" },
-        { "label": "Witness", "value": "Nora Elizabeth Harrow" },
-        { "label": "Address", "value": "22 Wilmot Street, Bethnal Green, E.2" },
-        { "label": "Occupation", "value": "Housewife" },
-        { "label": "Statement taken by", "value": "D.C. Reeves" },
-        { "label": "Date", "value": "14th April 1966" }
+        {
+          "label": "Ref. No.",
+          "value": "WS/66/018"
+        },
+        {
+          "label": "Witness",
+          "value": "Nora Elizabeth Harrow"
+        },
+        {
+          "label": "Address",
+          "value": "22 Wilmot Street, Bethnal Green, E.2"
+        },
+        {
+          "label": "Occupation",
+          "value": "Housewife"
+        },
+        {
+          "label": "Statement taken by",
+          "value": "D.C. Reeves"
+        },
+        {
+          "label": "Date",
+          "value": "14th April 1966"
+        }
       ],
       "body": "I, Nora Elizabeth Harrow, of 22 Wilmot Street, E.2, state as follows: —\n\n1. I am the wife of Desmond Frank Harrow and have been married to him twenty-two years.\n\n2. On the evening of Monday the 11th April I was unwell with my head. I took a powder for it and went up to bed at about half past nine.\n\n3. The powder always makes me heavy. I did not hear my husband come in and I could not say what time it was.\n\n4. When I woke at six o'clock he was in the bed beside me.\n\n5. He is a good husband and there is no harm in him. He and Bernie were like brothers to one another.\n\n6. I have told Desmond he ought not to have said I could speak for the time he came home, because I cannot, and I will not say a thing that is not true.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) N. E. Harrow\nWitnessed: D.C. Reeves, 14th April 1966"
     },
@@ -211,11 +381,26 @@
       "letterhead": "Gadsby & Pryce",
       "subhead": "Solicitors",
       "meta": [
-        { "label": "Address", "value": "41 Bethnal Green Road, London E.2" },
-        { "label": "Telephone", "value": "BIShopsgate 4417" },
-        { "label": "Date", "value": "8th April 1966" },
-        { "label": "Addressed to", "value": "B. A. Coote, Esq., Cheshire Street Yard, Bethnal Green, E.1" },
-        { "label": "Recovered from", "value": "Deceased's office, Cheshire Street Yard, 13th April 1966" }
+        {
+          "label": "Address",
+          "value": "41 Bethnal Green Road, London E.2"
+        },
+        {
+          "label": "Telephone",
+          "value": "BIShopsgate 4417"
+        },
+        {
+          "label": "Date",
+          "value": "8th April 1966"
+        },
+        {
+          "label": "Addressed to",
+          "value": "B. A. Coote, Esq., Cheshire Street Yard, Bethnal Green, E.1"
+        },
+        {
+          "label": "Recovered from",
+          "value": "Deceased's office, Cheshire Street Yard, 13th April 1966"
+        }
       ],
       "body": "Dear Mr. Coote,\n\nRe: Coote & Harrow, scrap metal merchants\n\nWe acknowledge your instructions of the 5th instant and have now prepared draft notice of dissolution of the partnership for service upon Mr. Harrow.\n\nBefore notice is served we would draw your attention to clause 7 of the deed, under which the retiring partner's share falls to be valued as at the date of notice. On the figures you were good enough to supply, Mr. Harrow's entitlement would be very considerably reduced by the sums drawn upon the business account over the past eighteen months, which upon your own account remain unexplained.\n\nWe would advise most strongly that this matter be raised with your partner before notice is served, and that you take a note of anything he may say upon it.\n\nKindly telephone this office at your convenience to settle the date.\n\nYours faithfully,\n\nR. Gadsby\nGADSBY & PRYCE"
     },
@@ -226,14 +411,38 @@
       "letterhead": "Metropolitan Police — C Division",
       "subhead": "Statement of Witness",
       "meta": [
-        { "label": "Ref. No.", "value": "WS/66/019" },
-        { "label": "Witness", "value": "Alfred Sowerby" },
-        { "label": "Address", "value": "9 Morning Lane, Hackney, E.9" },
-        { "label": "Age", "value": "48" },
-        { "label": "Height", "value": "6 ft 0 in" },
-        { "label": "Occupation", "value": "Scrap metal dealer" },
-        { "label": "Statement taken by", "value": "D.C. Reeves" },
-        { "label": "Date", "value": "14th April 1966" }
+        {
+          "label": "Ref. No.",
+          "value": "WS/66/019"
+        },
+        {
+          "label": "Witness",
+          "value": "Alfred Sowerby"
+        },
+        {
+          "label": "Address",
+          "value": "9 Morning Lane, Hackney, E.9"
+        },
+        {
+          "label": "Age",
+          "value": "48"
+        },
+        {
+          "label": "Height",
+          "value": "6 ft 0 in"
+        },
+        {
+          "label": "Occupation",
+          "value": "Scrap metal dealer"
+        },
+        {
+          "label": "Statement taken by",
+          "value": "D.C. Reeves"
+        },
+        {
+          "label": "Date",
+          "value": "14th April 1966"
+        }
       ],
       "body": "I, Alfred Sowerby, of 9 Morning Lane, E.9, state as follows: —\n\n1. I deal in scrap out of Hackney and have done for twenty years. I knew Bernard Coote in the way of business and I will not pretend I was fond of him.\n\n2. I am told you have heard about the row. I do not deny it. In February he had a load of copper away from under me at Silvertown that I had shaken hands on. I called him what he was, in front of the yard, and I would say it again now he is dead.\n\n3. That is a long way from doing murder on a man, and you know it as well as I do.\n\n4. On the Monday night I was in the Camel and Artichoke from about eight. Coote was in there with his partner Harrow. I did not speak to either of them.\n\n5. I left before they did, about ten, and went home. My daughter keeps house for me and let me in. Ask her.\n\n6. I have never been in the yard on Cheshire Street in my life, nor down the lock-ups.\n\n7. You have asked me for a sample of my blood. You can have it and welcome, and my fingers to print as well, if it will get me shut of it.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) A. Sowerby\nWitnessed: D.C. Reeves, 14th April 1966"
     },
@@ -244,14 +453,38 @@
       "letterhead": "Metropolitan Police — Criminal Record Office",
       "subhead": "Extract of Record",
       "meta": [
-        { "label": "C.R.O. No.", "value": "41822/58" },
-        { "label": "Name", "value": "Leonard James Stipe" },
-        { "label": "Aliases", "value": "\"Lenny\" Stipe; L. J. Stipp" },
-        { "label": "Age", "value": "36" },
-        { "label": "Height", "value": "6 ft 1 in" },
-        { "label": "Address", "value": "Last known: 8 Quilter Street, Bethnal Green, E.2" },
-        { "label": "Fingerprints", "value": "Held on file since 1958" },
-        { "label": "Extract prepared", "value": "14th April 1966" }
+        {
+          "label": "C.R.O. No.",
+          "value": "41822/58"
+        },
+        {
+          "label": "Name",
+          "value": "Leonard James Stipe"
+        },
+        {
+          "label": "Aliases",
+          "value": "\"Lenny\" Stipe; L. J. Stipp"
+        },
+        {
+          "label": "Age",
+          "value": "36"
+        },
+        {
+          "label": "Height",
+          "value": "6 ft 1 in"
+        },
+        {
+          "label": "Address",
+          "value": "Last known: 8 Quilter Street, Bethnal Green, E.2"
+        },
+        {
+          "label": "Fingerprints",
+          "value": "Held on file since 1958"
+        },
+        {
+          "label": "Extract prepared",
+          "value": "14th April 1966"
+        }
       ],
       "body": "PREVIOUS CONVICTIONS\n\n1958 — Demanding money with menaces. Eighteen months' imprisonment.\n\n1961 — Wounding. Three years' imprisonment. Complainant, a licensee of Hoxton, withdrew his evidence at committal; conviction obtained upon police evidence and the medical report.\n\n1964 — Assault occasioning actual bodily harm. Bound over. Complainant did not attend.\n\nMETHOD\n\nCollection of monies from licensed and unlicensed premises and from small tradesmen, upon a weekly round. Violence is offered at the premises and in the presence of others, the object being that the fact should be known. In no case recorded here has this man been known to attend a premises alone.\n\nKNOWN ASSOCIATES\n\nThe Vasey brothers, of the snooker hall, Vallance Road. Stipe is understood to collect upon their behalf and not upon his own account.\n\nVEHICLE\n\nUse of a grey Ford Zodiac. This man does not hold a licence and is habitually driven by another.\n\nNOTE\n\nFingerprints of this man are held on file and are available for comparison upon request.\n\n(Signed) Sgt. W. Doughty\nCriminal Record Office"
     },
@@ -262,10 +495,22 @@
       "letterhead": "Metropolitan Police — C Division",
       "subhead": "Observation Report",
       "meta": [
-        { "label": "Ref. No.", "value": "OB/66/007" },
-        { "label": "Compiled by", "value": "D.S. Iveson" },
-        { "label": "Period covered", "value": "January to April 1966" },
-        { "label": "Date", "value": "15th April 1966" }
+        {
+          "label": "Ref. No.",
+          "value": "OB/66/007"
+        },
+        {
+          "label": "Compiled by",
+          "value": "D.S. Iveson"
+        },
+        {
+          "label": "Period covered",
+          "value": "January to April 1966"
+        },
+        {
+          "label": "Date",
+          "value": "15th April 1966"
+        }
       ],
       "body": "1. This report is compiled from the observation kept upon collections in this division since January, at the request of the investigating officer. It is a record of observation only and is not to be read as evidence against any person named.\n\n2. The scrap yard at Cheshire Street is one of some fourteen premises understood to pay weekly. The round is walked on a Friday. The collection is recorded as two pounds ten shillings and has been paid without incident since observation began.\n\n3. Payment has been received on eleven occasions by the man Stipe (C.R.O. 41822/58) and on three occasions by a man not identified. On every occasion Stipe was carried to the round in a grey Ford Zodiac, driven by another man who remained with the vehicle.\n\n4. A grey Zodiac answering that description was seen standing on Bethnal Green Road at about 7.15 p.m. on Monday the 11th April, some quarter of a mile from the yard. It was not seen after that hour.\n\n5. No arrears are recorded against the Cheshire Street yard and no complaint has been made by either partner.\n\n6. It should be noted for completeness that where premises upon this round have fallen into arrears, the practice observed has been the breaking of windows or of stock, done openly and in daylight. No premises upon this round has been the subject of an attack upon the person.\n\n(Signed) W. Iveson, D.S.\nC Division"
     },
@@ -276,8 +521,14 @@
       "letterhead": "East London Advertiser",
       "subhead": "Friday, 15th April 1966",
       "meta": [
-        { "label": "Page", "value": "1" },
-        { "label": "Cutting filed", "value": "15th April 1966" }
+        {
+          "label": "Page",
+          "value": "1"
+        },
+        {
+          "label": "Cutting filed",
+          "value": "15th April 1966"
+        }
       ],
       "body": "SCRAP DEALER SLAIN IN LOCK-UP\n\nPolice probe underworld link\n\nA BETHNAL GREEN scrap metal dealer was found battered to death in a lock-up garage off Cheshire Street on Tuesday morning, and detectives are understood to be examining the killing for the hallmarks of a gangland execution.\n\nMr. Bernard Coote, 44, was discovered beside his own van. He had been struck about the head.\n\nThe Advertiser understands that the yard is among a number of East End businesses said to pay a weekly sum for what is euphemistically termed protection, and it is upon this connection that the investigation is believed to be concentrating.\n\n\"Everyone round here knows how it is done, and everyone knows who does it,\" one Cheshire Street tradesman told our reporter last night. \"You do not need to be a detective. You need only be willing to say it.\"\n\nA police spokesman would say only that enquiries were proceeding.\n\nThe inquest opens at Poplar on Tuesday."
     },
@@ -288,15 +539,218 @@
       "letterhead": "Metropolitan Police — C Division",
       "subhead": "Report of Officer",
       "meta": [
-        { "label": "Ref. No.", "value": "RP/66/022" },
-        { "label": "Officer", "value": "D.C. A. Reeves" },
-        { "label": "Subject", "value": "Cyril Bunce, 3 Pedley Street, Bethnal Green, E.1" },
-        { "label": "Age", "value": "52" },
-        { "label": "Height", "value": "5 ft 4 in" },
-        { "label": "Occupation", "value": "Rag and bone man" },
-        { "label": "Date", "value": "14th April 1966" }
+        {
+          "label": "Ref. No.",
+          "value": "RP/66/022"
+        },
+        {
+          "label": "Officer",
+          "value": "D.C. A. Reeves"
+        },
+        {
+          "label": "Subject",
+          "value": "Cyril Bunce, 3 Pedley Street, Bethnal Green, E.1"
+        },
+        {
+          "label": "Age",
+          "value": "52"
+        },
+        {
+          "label": "Height",
+          "value": "5 ft 4 in"
+        },
+        {
+          "label": "Occupation",
+          "value": "Rag and bone man"
+        },
+        {
+          "label": "Date",
+          "value": "14th April 1966"
+        }
       ],
       "body": "1. Acting upon information that the deceased had lent money to a man Bunce, I saw Cyril Bunce at his address on the 13th April and again on the 14th.\n\n2. Bunce admits owing the deceased eleven pounds, lent last autumn against a pony and cart. He had paid back four pounds of it. He says Coote never pressed him for the remainder and that he was ashamed of the debt.\n\n3. He admits being upon Cheshire Street on the night of Monday the 11th at about eleven o'clock, walking home from his sister's house at Hare Marsh. He says he did not go into the yard.\n\n4. He can produce nobody to speak for his movements after eleven o'clock. He lives alone. He was distressed at being asked and asked me twice whether he was to be taken in.\n\n5. His sister, Mrs. E. Fowler of Hare Marsh, confirms that he was at her house until about a quarter to eleven.\n\n6. Bunce gave a sample of blood without objection. I would observe that he is a small man, five feet four, and stooped with it.\n\n7. He has no previous convictions and is not known at the Criminal Record Office.\n\n(Signed) A. Reeves, D.C.\nC Division"
+    },
+    {
+      "id": "doc-12",
+      "type": "scene examination",
+      "title": "Scene examination — third lock-up",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Scene Examination",
+      "requires": "request-scene-examination",
+      "meta": [
+        {
+          "label": "Ref. No.",
+          "value": "SE/66/009"
+        },
+        {
+          "label": "Place",
+          "value": "Third lock-up garage, rear of Cheshire Street"
+        },
+        {
+          "label": "Examined by",
+          "value": "D.S. T. Bramley"
+        },
+        {
+          "label": "Date",
+          "value": "12th April 1966"
+        }
+      ],
+      "body": "1. The lock-up is of brick, fourteen feet by nine, with a wooden door secured by a hasp and padlock. It is one of a range of six standing behind the yard.\n\n2. The padlock was found hanging open upon the hasp. There is no damage to the door, the hasp or the frame, and no indication whatever of forced entry.\n\n3. I am informed that keys to this lock-up are held by both partners in the business and by no other person.\n\n4. The deceased lay upon his right side some four feet within the door. Exhibit 1, the spanner, lay upon the floor about four feet from the head of the deceased.\n\n5. A rack of tools stands against the left-hand wall. It carries spanners of the same pattern and manufacture as Exhibit 1, and one space upon the rack is vacant.\n\n6. The deceased's van stood immediately outside, unlocked, with nothing disturbed within it.\n\n7. Nothing in the lock-up appears to have been searched or turned over. A pocket book and the sum of eleven pounds fifteen shillings were recovered from the deceased's jacket.\n\n(Signed) T. Bramley, D.S.\nC Division"
+    },
+    {
+      "id": "doc-13",
+      "type": "criminal record office extract",
+      "title": "C.R.O. search — A. Sowerby",
+      "letterhead": "Metropolitan Police — Criminal Record Office",
+      "subhead": "Result of Search",
+      "requires": "request-cro-sowerby",
+      "meta": [
+        {
+          "label": "Ref. No.",
+          "value": "CRO/66/1188"
+        },
+        {
+          "label": "Subject",
+          "value": "Alfred Sowerby, 9 Morning Lane, Hackney, E.9"
+        },
+        {
+          "label": "Search requested",
+          "value": "14th April 1966"
+        },
+        {
+          "label": "Prepared by",
+          "value": "Sgt. W. Doughty"
+        }
+      ],
+      "body": "RESULT OF SEARCH\n\nNo trace.\n\nThe name and description submitted have been searched against the records of this office and against the aliases index. There is no record of this man and no fingerprint impressions are held.\n\nIt does not follow that the subject has committed no offence. It follows only that he has not been convicted or printed within the scope of these records.\n\n(Signed) W. Doughty, Sgt.\nCriminal Record Office"
+    },
+    {
+      "id": "doc-14",
+      "type": "witness-statement",
+      "title": "Statement of witness — H. Tulloch, licensee",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Statement of Witness",
+      "requires": "request-licensee",
+      "meta": [
+        {
+          "label": "Ref. No.",
+          "value": "WS/66/023"
+        },
+        {
+          "label": "Witness",
+          "value": "Harold Tulloch"
+        },
+        {
+          "label": "Address",
+          "value": "The Camel and Artichoke, Bethnal Green Road, E.2"
+        },
+        {
+          "label": "Occupation",
+          "value": "Licensee"
+        },
+        {
+          "label": "Statement taken by",
+          "value": "D.C. Reeves"
+        },
+        {
+          "label": "Date",
+          "value": "16th April 1966"
+        }
+      ],
+      "body": "I, Harold Tulloch, of the above address, state as follows: —\n\n1. I have kept the Camel and Artichoke eleven years. I knew Bernard Coote and Desmond Harrow as regular customers, in most weeks twice or three times.\n\n2. On the Monday night they were in from about seven o'clock and sat in the public bar by the window.\n\n3. I could not tell you what they talked of. I will say they were not as easy with one another as I have generally seen them. There was none of the usual larking about.\n\n4. Alfred Sowerby of Hackney was in the same night. He did not go near them and they did not go near him. He went off before ten, and I remember it because he settled a slate he had owed me since Christmas.\n\n5. Coote and Harrow went out together at closing, half past ten, the two of them side by side.\n\n6. I saw nothing of either of them afterwards.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) H. Tulloch\nWitnessed: D.C. Reeves, 16th April 1966"
+    },
+    {
+      "id": "doc-15",
+      "type": "bank extract",
+      "title": "Bank extract — Coote & Harrow account",
+      "letterhead": "District Bank Limited — Bethnal Green Branch",
+      "subhead": "Extract of Account",
+      "requires": "request-bank-account",
+      "meta": [
+        {
+          "label": "Ref. No.",
+          "value": "BK/66/0071"
+        },
+        {
+          "label": "Account",
+          "value": "Coote & Harrow, scrap metal merchants"
+        },
+        {
+          "label": "Period",
+          "value": "October 1964 to April 1966"
+        },
+        {
+          "label": "Furnished to",
+          "value": "D.I., C Division, upon the Coroner's authority"
+        },
+        {
+          "label": "Signed",
+          "value": "F. J. Lambourne, Manager"
+        }
+      ],
+      "body": "EXTRACT OF ACCOUNT\n\nThe account is in the joint names of the partners. Either partner may draw upon it singly.\n\nWithdrawals upon the counter over the period, exclusive of trade payments, are summarised as follows.\n\nDrawn upon the signature of B. A. Coote: eleven occasions, £214 in all.\n\nDrawn upon the signature of D. F. Harrow: forty-three occasions, £1,186 in all. Of these, thirty-one fall within the eighteen months last past.\n\nThe larger of these sums were drawn in cash upon a Friday. No corresponding entries appear in the trade payments.\n\nThe manager adds that Mr. Coote attended the branch upon the 6th April and asked for a statement of the account going back two years, which was furnished to him upon the 7th.\n\n(Signed) F. J. Lambourne\nManager"
+    },
+    {
+      "id": "doc-16",
+      "type": "police report",
+      "title": "Vehicle enquiry — grey Zodiac",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Result of Enquiry",
+      "requires": "request-vehicle-enquiry",
+      "meta": [
+        {
+          "label": "Ref. No.",
+          "value": "VE/66/044"
+        },
+        {
+          "label": "Subject",
+          "value": "Grey Ford Zodiac, seen Bethnal Green Road, 11th April"
+        },
+        {
+          "label": "Officer",
+          "value": "D.C. A. Reeves"
+        },
+        {
+          "label": "Date",
+          "value": "18th April 1966"
+        }
+      ],
+      "body": "1. Enquiry was made to establish the registration and keeper of the motor car described in observation report OB/66/007.\n\n2. No registration was recorded at the time of the observation. Enquiry of the garages and hire firms in this division and in Hackney has produced three grey Zodiacs answering the general description.\n\n3. Of these, one is kept by a licensed hire firm at Dalston. Their record shows the car out upon the 11th April to a man giving a name and an address at Stepney. The address is a bomb site and has been since the war. The name is not known at this office.\n\n4. The remaining two are accounted for and their keepers are not connected with this enquiry.\n\n5. I am unable to take this further without the registration. No connection between any of these vehicles and the Cheshire Street yard has been established.\n\n(Signed) A. Reeves, D.C.\nC Division"
+    },
+    {
+      "id": "doc-17",
+      "type": "witness-statement",
+      "title": "Statement of witness — E. M. Coote",
+      "letterhead": "Metropolitan Police — C Division",
+      "subhead": "Statement of Witness",
+      "requires": "request-widow",
+      "meta": [
+        {
+          "label": "Ref. No.",
+          "value": "WS/66/021"
+        },
+        {
+          "label": "Witness",
+          "value": "Edith Mary Coote"
+        },
+        {
+          "label": "Address",
+          "value": "31 Cheshire Street, Bethnal Green, E.1"
+        },
+        {
+          "label": "Occupation",
+          "value": "Widow of the deceased"
+        },
+        {
+          "label": "Statement taken by",
+          "value": "D.C. Reeves"
+        },
+        {
+          "label": "Date",
+          "value": "15th April 1966"
+        }
+      ],
+      "body": "I, Edith Mary Coote, of 31 Cheshire Street, E.1, state as follows: —\n\n1. I was married to Bernard Coote for nineteen years.\n\n2. He had been low in himself since the turn of the year. He would sit over the books of an evening and not say what was the matter, which was not his way.\n\n3. About a fortnight since he told me he had put a business matter into the hands of a solicitor and that it would be settled shortly. He would not be drawn upon what it was and I did not press him.\n\n4. He said one thing to me that I have thought upon since. He said, it is a hard thing when a man you have known all your life takes you for a fool.\n\n5. He did not say who he meant and I did not ask him. I took it for one of the dealers.\n\n6. He went out on the Monday evening at about half past six and said he would not be late. He did not come home.\n\n7. He was not a man who quarrelled. He kept things to himself and it did him no good.\n\nI have read this statement, or it has been read to me, and it is true to the best of my knowledge and belief.\n\n(Signed) E. M. Coote\nWitnessed: D.C. Reeves, 15th April 1966"
     }
   ],
   "contradictions": [
@@ -322,5 +776,56 @@
       "suggests": "firm_connected",
       "resolved_by": "doc-09"
     }
-  ]
+  ],
+  "actions": [
+    {
+      "id": "request-scene-examination",
+      "label": "Scene examination report",
+      "detail": "Ask D.S. Bramley for the examination of the lock-up itself.",
+      "real_minutes": 2,
+      "game_hours": 6,
+      "delivers": "doc-12"
+    },
+    {
+      "id": "request-widow",
+      "label": "Statement of the widow",
+      "detail": "Send Reeves to Mrs. Coote. She has only just buried him.",
+      "real_minutes": 3,
+      "game_hours": 18,
+      "delivers": "doc-17"
+    },
+    {
+      "id": "request-licensee",
+      "label": "Statement of the licensee",
+      "detail": "The Camel and Artichoke. Somebody behind that bar watched them all night.",
+      "real_minutes": 4,
+      "game_hours": 24,
+      "delivers": "doc-14"
+    },
+    {
+      "id": "request-cro-sowerby",
+      "label": "C.R.O. search — Sowerby",
+      "detail": "Have the Record Office searched for the Hackney dealer.",
+      "real_minutes": 3,
+      "game_hours": 12,
+      "delivers": "doc-13"
+    },
+    {
+      "id": "request-bank-account",
+      "label": "Extract of the business account",
+      "detail": "The bank will want the Coroner's authority before they open the ledger.",
+      "real_minutes": 6,
+      "game_hours": 48,
+      "delivers": "doc-15"
+    },
+    {
+      "id": "request-vehicle-enquiry",
+      "label": "Trace the grey Zodiac",
+      "detail": "No registration was taken. Reeves thinks it can still be run down.",
+      "real_minutes": 5,
+      "game_hours": 36,
+      "delivers": "doc-16"
+    }
+  ],
+  "opens_time": "09:00"
 }

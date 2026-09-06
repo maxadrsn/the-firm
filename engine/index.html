@@ -11,26 +11,63 @@
 
   <div class="lamplight" aria-hidden="true"></div>
 
-  <aside class="case-folder">
-    <div class="folder-head">
-      <p class="folder-stamp">C Division</p>
-      <h1 class="case-title" id="case-title">&nbsp;</h1>
-      <p class="case-opens" id="case-opens">&nbsp;</p>
+  <div class="left-column">
+
+    <aside class="case-folder">
+      <div class="folder-head">
+        <p class="folder-stamp">C Division</p>
+        <h1 class="case-title" id="case-title">&nbsp;</h1>
+        <p class="case-opens" id="case-opens">&nbsp;</p>
+      </div>
+
+      <ul class="doc-list" id="doc-list"></ul>
+
+      <button type="button" class="doc-list-item report-entry" id="report-entry">
+        <span class="doc-type-label">Investigating Officer</span>
+        <span class="doc-title-label">Report of Investigating Officer</span>
+      </button>
+    </aside>
+
+    <div class="desk-instruments">
+
+      <button type="button" class="instrument in-tray" id="in-tray">
+        <span class="tray-rails" aria-hidden="true">
+          <span class="tray-paper"></span>
+          <span class="tray-paper two"></span>
+        </span>
+        <span class="instrument-label">In-tray</span>
+        <span class="tray-badge" id="tray-badge" hidden>0</span>
+      </button>
+
+      <button type="button" class="instrument telephone" id="telephone">
+        <span class="phone-body" aria-hidden="true">
+          <span class="phone-dial"></span>
+          <span class="phone-handset"></span>
+        </span>
+        <span class="instrument-label">Telephone</span>
+      </button>
+
+      <div class="instrument desk-calendar" id="desk-calendar">
+        <span class="cal-month" id="cal-month">APR</span>
+        <span class="cal-day" id="cal-day">12</span>
+        <span class="cal-year" id="cal-year">1966</span>
+      </div>
+
+      <div class="instrument desk-clock" title="The time on your own clock">
+        <span class="clock-face" aria-hidden="true">
+          <span class="clock-tick t12"></span>
+          <span class="clock-tick t3"></span>
+          <span class="clock-tick t6"></span>
+          <span class="clock-tick t9"></span>
+          <span class="clock-hand hour" id="clock-hour"></span>
+          <span class="clock-hand minute" id="clock-minute"></span>
+          <span class="clock-pin"></span>
+        </span>
+        <span class="instrument-label" id="clock-readout">&nbsp;</span>
+      </div>
+
     </div>
-
-    <ul class="doc-list" id="doc-list"></ul>
-
-    <button type="button" class="doc-list-item report-entry" id="report-entry">
-      <span class="doc-type-label">Investigating Officer</span>
-      <span class="doc-title-label">Report of Investigating Officer</span>
-    </button>
-
-    <div class="desk-calendar" id="desk-calendar" aria-hidden="true">
-      <span class="cal-month" id="cal-month">APR</span>
-      <span class="cal-day" id="cal-day">12</span>
-      <span class="cal-year" id="cal-year">1966</span>
-    </div>
-  </aside>
+  </div>
 
   <main class="blotter" id="reading-area">
     <div class="reading-pane pinned-pane" id="pinned-pane"></div>
@@ -39,7 +76,6 @@
     </div>
   </main>
 
-  <div class="teacup" aria-hidden="true"><span class="tea"></span></div>
   <div class="ashtray" aria-hidden="true"><span class="stub"></span><span class="stub two"></span></div>
 
   <section class="index-drawer" id="index-drawer">

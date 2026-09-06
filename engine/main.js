@@ -19,9 +19,16 @@
   const indexCardsEl = document.getElementById("index-cards");
   const notebookEl = document.getElementById("notebook-area");
 
+  const telephoneEl = document.getElementById("telephone");
+  const inTrayEl = document.getElementById("in-tray");
+  const trayBadgeEl = document.getElementById("tray-badge");
+
   const calMonthEl = document.getElementById("cal-month");
   const calDayEl = document.getElementById("cal-day");
   const calYearEl = document.getElementById("cal-year");
+  const clockHourEl = document.getElementById("clock-hour");
+  const clockMinuteEl = document.getElementById("clock-minute");
+  const clockReadoutEl = document.getElementById("clock-readout");
 
   const TYPE_LABELS = {
     "post-mortem": "Post-mortem report",
@@ -32,6 +39,8 @@
     "observation report": "Observation report",
     "newspaper clipping": "Press cutting",
     "police report": "Report of officer",
+    "scene examination": "Scene examination",
+    "bank extract": "Bank extract",
     "internal-memo": "Internal memo",
   };
 
@@ -61,19 +70,28 @@
 
   const SHORT_VARIANT_LENGTH = 3;
   const REPORT_VIEW = "REPORT_FORM";
+  const REQUESTS_VIEW = "REQUESTS";
   const BROWSE_PLACEHOLDER =
     '<p class="placeholder">Take a document from the folder.</p>';
 
   const state = {
     caseData: null,
     byId: {},
+    actionById: {},
     activeId: null,
     pinnedId: null,
     reportDraft: {},
     reportAttempts: 0,
     indexQuery: "",
     // Everything under `saved` is persisted to localStorage.
-    saved: { highlights: {}, bookmarks: {}, notes: "", drawerOpen: false },
+    saved: {
+      highlights: {},
+      bookmarks: {},
+      notes: "",
+      drawerOpen: false,
+      requests: {},   // actionId -> { dueAt, delivered }
+      seen: {},       // docId -> true, for the in-tray badge
+    },
   };
 
   /* ---------------- persistence ---------------- */
@@ -92,6 +110,8 @@
         bookmarks: parsed.bookmarks || {},
         notes: typeof parsed.notes === "string" ? parsed.notes : "",
         drawerOpen: !!parsed.drawerOpen,
+        requests: parsed.requests || {},
+        seen: parsed.seen || {},
       };
     } catch (err) {
       // Private windows and blocked site data both throw here. Carry on
@@ -123,16 +143,18 @@
     state.caseData = caseData;
     loadSaved();
 
+    caseData.documents.forEach((doc) => { state.byId[doc.id] = doc; });
+    (caseData.actions || []).forEach((a) => { state.actionById[a.id] = a; });
+
     caseTitleEl.textContent = caseData.title;
     caseOpensEl.textContent = "Opened " + formatDate(caseData.opens);
-    setCalendar(caseData.opens);
 
-    caseData.documents.forEach((doc) => {
-      state.byId[doc.id] = doc;
-      docListEl.appendChild(buildListItem(doc));
-    });
+    // Requests that came due while the desk was unattended are already waiting.
+    settleDueRequests(true);
 
     reportEntryEl.addEventListener("click", () => setActive(REPORT_VIEW));
+    telephoneEl.addEventListener("click", () => setActive(REQUESTS_VIEW));
+    inTrayEl.addEventListener("click", openInTray);
 
     drawerHandleEl.addEventListener("click", () => {
       state.saved.drawerOpen = !state.saved.drawerOpen;
@@ -153,23 +175,217 @@
 
     renderCards();
     refreshDrawer();
+    tick();
+    window.setInterval(tick, 1000);
 
-    if (caseData.documents.length > 0) {
-      setActive(caseData.documents[0].id);
-    }
+    const first = availableDocuments()[0];
+    if (first) setActive(first.id);
+    else refresh();
   }
 
-  function setCalendar(iso) {
-    const [year, month, day] = iso.split("-").map(Number);
-    calMonthEl.textContent = MONTHS_SHORT[month - 1];
-    calDayEl.textContent = String(day);
-    calYearEl.textContent = String(year);
+  /* ---------------- requests and the clock ---------------- */
+
+  function requestState(actionId) {
+    return state.saved.requests[actionId] || null;
+  }
+
+  function isDelivered(actionId) {
+    const r = requestState(actionId);
+    return !!(r && r.delivered);
+  }
+
+  function isPending(actionId) {
+    const r = requestState(actionId);
+    return !!(r && !r.delivered);
+  }
+
+  function makeRequest(action) {
+    if (requestState(action.id)) return;
+    state.saved.requests[action.id] = {
+      dueAt: Date.now() + action.real_minutes * 60 * 1000,
+      delivered: false,
+    };
+    persist();
+    refresh();
+  }
+
+  // Returns true if anything newly landed.
+  function settleDueRequests(quiet) {
+    const now = Date.now();
+    let landed = false;
+
+    Object.keys(state.saved.requests).forEach((actionId) => {
+      const r = state.saved.requests[actionId];
+      if (!r.delivered && now >= r.dueAt) {
+        r.delivered = true;
+        landed = true;
+      }
+    });
+
+    if (landed) persist();
+    if (landed && !quiet) refresh();
+    return landed;
+  }
+
+  function availableDocuments() {
+    return state.caseData.documents.filter((doc) => {
+      if (!doc.requires) return true;
+      return isDelivered(doc.requires);
+    });
+  }
+
+  // Documents that have arrived and not yet been opened.
+  function unseenArrivals() {
+    return availableDocuments().filter(
+      (doc) => doc.requires && !state.saved.seen[doc.id]
+    );
+  }
+
+  function openInTray() {
+    const waiting = unseenArrivals();
+    if (waiting.length > 0) setActive(waiting[0].id);
+    else setActive(REQUESTS_VIEW);
+  }
+
+  // The desk calendar moves forward as enquiries come back.
+  function gameHoursElapsed() {
+    let hours = 0;
+    (state.caseData.actions || []).forEach((a) => {
+      if (isDelivered(a.id)) hours += a.game_hours || 0;
+    });
+    return hours;
+  }
+
+  function caseDate() {
+    const [y, m, d] = state.caseData.opens.split("-").map(Number);
+    const [hh, mm] = (state.caseData.opens_time || "09:00").split(":").map(Number);
+    const start = new Date(y, m - 1, d, hh, mm);
+    start.setHours(start.getHours() + gameHoursElapsed());
+    return start;
+  }
+
+  function tick() {
+    settleDueRequests(false);
+    updateClock();
+    updateCalendar();
+    updateCountdowns();
+  }
+
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours() % 12;
+    const m = now.getMinutes();
+    const s = now.getSeconds();
+    clockHourEl.style.transform = "rotate(" + ((h + m / 60) * 30) + "deg)";
+    clockMinuteEl.style.transform = "rotate(" + ((m + s / 60) * 6) + "deg)";
+    clockReadoutEl.textContent = clockWords(now);
+  }
+
+  // 1966 register: "twenty past three", not "15:20".
+  function clockWords(date) {
+    let h = date.getHours();
+    const m = date.getMinutes();
+    const suffix = h < 12 ? "a.m." : "p.m.";
+    h = h % 12;
+    if (h === 0) h = 12;
+    return h + "." + String(m).padStart(2, "0") + " " + suffix;
+  }
+
+  function updateCalendar() {
+    const d = caseDate();
+    calMonthEl.textContent = MONTHS_SHORT[d.getMonth()];
+    calDayEl.textContent = String(d.getDate());
+    calYearEl.textContent = String(d.getFullYear());
+  }
+
+  function updateCountdowns() {
+    document.querySelectorAll("[data-countdown]").forEach((el) => {
+      const due = Number(el.dataset.countdown);
+      el.textContent = countdownWords(due - Date.now());
+    });
+  }
+
+  function countdownWords(ms) {
+    if (ms <= 0) return "due now";
+    const total = Math.ceil(ms / 1000);
+    const mins = Math.floor(total / 60);
+    const secs = total % 60;
+    return mins + ":" + String(secs).padStart(2, "0");
+  }
+
+  function refreshTray() {
+    const n = unseenArrivals().length;
+    trayBadgeEl.textContent = String(n);
+    trayBadgeEl.hidden = n === 0;
+    inTrayEl.classList.toggle("has-post", n > 0);
+
+    const pending = (state.caseData.actions || []).some((a) => isPending(a.id));
+    telephoneEl.classList.toggle("waiting", pending);
+  }
+
+  /* ---------------- navigation ---------------- */
+
+  function setActive(id) {
+    state.activeId = id;
+    if (state.byId[id] && state.byId[id].requires && !state.saved.seen[id]) {
+      state.saved.seen[id] = true;
+      persist();
+    }
+    refresh();
+  }
+
+  function togglePin(id) {
+    state.pinnedId = state.pinnedId === id ? null : id;
+    refresh();
+  }
+
+  function toggleBookmark(id) {
+    if (state.saved.bookmarks[id]) delete state.saved.bookmarks[id];
+    else state.saved.bookmarks[id] = true;
+    persist();
+    refresh();
+  }
+
+  function refresh() {
+    hideMarkPopup();
+    refreshDocList();
+    refreshTray();
+    refreshPinnedPane();
+    refreshBrowsePane();
+    updateCountdowns();
+  }
+
+  function refreshDrawer() {
+    const open = state.saved.drawerOpen;
+    drawerEl.classList.toggle("open", open);
+    deskEl.classList.toggle("drawer-open", open);
+    drawerStateEl.textContent = open ? "Close" : "Open";
+  }
+
+  function refreshDocList() {
+    docListEl.innerHTML = "";
+    availableDocuments().forEach((doc) => docListEl.appendChild(buildListItem(doc)));
+
+    reportEntryEl.classList.toggle(
+      "active",
+      state.activeId === REPORT_VIEW || state.activeId === "memo"
+    );
+    telephoneEl.classList.toggle("active", state.activeId === REQUESTS_VIEW);
   }
 
   function buildListItem(doc) {
     const item = document.createElement("li");
     item.className = "doc-list-item";
     item.dataset.docId = doc.id;
+    item.classList.toggle("active", doc.id === state.activeId);
+    item.classList.toggle("pinned", doc.id === state.pinnedId);
+    item.classList.toggle("bookmarked", !!state.saved.bookmarks[doc.id]);
+
+    // Must be a real boolean: classList.toggle(name, undefined) toggles the
+    // class rather than forcing it off, and doc.requires is undefined on the
+    // documents that start on the desk.
+    const isNew = !!(doc.requires && !state.saved.seen[doc.id]);
+    item.classList.toggle("fresh", isNew);
 
     const typeLabel = document.createElement("span");
     typeLabel.className = "doc-type-label";
@@ -181,6 +397,13 @@
 
     const flags = document.createElement("span");
     flags.className = "item-flags";
+
+    if (isNew) {
+      const fresh = document.createElement("span");
+      fresh.className = "fresh-flag";
+      fresh.textContent = "Just in";
+      flags.appendChild(fresh);
+    }
 
     const pinFlag = document.createElement("span");
     pinFlag.className = "pin-flag";
@@ -201,60 +424,10 @@
     return item;
   }
 
-  /* ---------------- navigation ---------------- */
-
-  function setActive(id) {
-    state.activeId = id;
-    refresh();
-  }
-
-  function togglePin(id) {
-    state.pinnedId = state.pinnedId === id ? null : id;
-    refresh();
-  }
-
-  function toggleBookmark(id) {
-    if (state.saved.bookmarks[id]) {
-      delete state.saved.bookmarks[id];
-    } else {
-      state.saved.bookmarks[id] = true;
-    }
-    persist();
-    refresh();
-  }
-
-  function refresh() {
-    hideMarkPopup();
-    refreshListClasses();
-    refreshPinnedPane();
-    refreshBrowsePane();
-  }
-
-  function refreshDrawer() {
-    const open = state.saved.drawerOpen;
-    drawerEl.classList.toggle("open", open);
-    deskEl.classList.toggle("drawer-open", open);
-    drawerStateEl.textContent = open ? "Close" : "Open";
-  }
-
-  function refreshListClasses() {
-    docListEl.querySelectorAll(".doc-list-item").forEach((item) => {
-      const id = item.dataset.docId;
-      item.classList.toggle("active", id === state.activeId);
-      item.classList.toggle("pinned", id === state.pinnedId);
-      item.classList.toggle("bookmarked", !!state.saved.bookmarks[id]);
-    });
-
-    reportEntryEl.classList.toggle(
-      "active",
-      state.activeId === REPORT_VIEW || state.activeId === "memo"
-    );
-  }
-
   function refreshPinnedPane() {
     pinnedPaneEl.innerHTML = "";
 
-    if (!state.pinnedId) {
+    if (!state.pinnedId || !state.byId[state.pinnedId]) {
       blotterEl.classList.remove("split");
       return;
     }
@@ -276,7 +449,128 @@
       return;
     }
 
-    browsePaneEl.appendChild(buildDocumentSheet(state.byId[state.activeId]));
+    if (state.activeId === REQUESTS_VIEW) {
+      browsePaneEl.appendChild(buildRequestsDocket());
+      return;
+    }
+
+    const doc = state.byId[state.activeId];
+    if (!doc) {
+      browsePaneEl.innerHTML = BROWSE_PLACEHOLDER;
+      return;
+    }
+    browsePaneEl.appendChild(buildDocumentSheet(doc));
+  }
+
+  /* ---------------- requests docket ---------------- */
+
+  function buildRequestsDocket() {
+    const sheet = document.createElement("article");
+    sheet.className = "document-sheet";
+    sheet.dataset.type = "requests";
+
+    sheet.appendChild(
+      buildLetterhead("Metropolitan Police — C Division", "Requests and Enquiries")
+    );
+    sheet.appendChild(
+      buildMetaList([
+        { label: "Case", value: state.caseData.title },
+        { label: "Officer", value: "D.I., C Division" },
+        { label: "Desk date", value: formatLongDate(caseDate()) },
+      ])
+    );
+
+    const intro = document.createElement("p");
+    intro.className = "requests-intro";
+    intro.textContent =
+      "Nothing here is needed to close the case. Each enquiry costs time, and some of it will be wasted.";
+    sheet.appendChild(intro);
+
+    const list = document.createElement("div");
+    list.className = "request-list";
+
+    (state.caseData.actions || []).forEach((action) => {
+      list.appendChild(buildRequestRow(action));
+    });
+
+    sheet.appendChild(list);
+    return sheet;
+  }
+
+  function buildRequestRow(action) {
+    const row = document.createElement("div");
+    row.className = "request-row";
+
+    const head = document.createElement("div");
+    head.className = "request-head";
+
+    const label = document.createElement("span");
+    label.className = "request-label";
+    label.textContent = action.label;
+    head.appendChild(label);
+
+    const detail = document.createElement("p");
+    detail.className = "request-detail";
+    detail.textContent = action.detail;
+
+    row.appendChild(head);
+    row.appendChild(detail);
+
+    const status = document.createElement("div");
+    status.className = "request-status";
+
+    if (isDelivered(action.id)) {
+      row.classList.add("delivered");
+      const doc = state.byId[action.delivers];
+      const done = document.createElement("span");
+      done.className = "request-done";
+      done.textContent = "Received.";
+      status.appendChild(done);
+
+      if (doc) {
+        const link = document.createElement("button");
+        link.type = "button";
+        link.className = "doc-ref";
+        link.textContent = doc.title;
+        link.addEventListener("click", () => setActive(doc.id));
+        status.appendChild(link);
+      }
+    } else if (isPending(action.id)) {
+      row.classList.add("pending");
+      const waiting = document.createElement("span");
+      waiting.className = "request-waiting";
+      waiting.textContent = "Sent. Expected in ";
+      status.appendChild(waiting);
+
+      const countdown = document.createElement("span");
+      countdown.className = "request-countdown";
+      countdown.dataset.countdown = String(requestState(action.id).dueAt);
+      countdown.textContent = countdownWords(requestState(action.id).dueAt - Date.now());
+      status.appendChild(countdown);
+    } else {
+      const cost = document.createElement("span");
+      cost.className = "request-cost";
+      cost.textContent =
+        "about " + action.real_minutes + " min, and " + gameCost(action.game_hours) + " on the case";
+      status.appendChild(cost);
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "request-button";
+      button.textContent = "Request";
+      button.addEventListener("click", () => makeRequest(action));
+      status.appendChild(button);
+    }
+
+    row.appendChild(status);
+    return row;
+  }
+
+  function gameCost(hours) {
+    if (!hours) return "no time";
+    if (hours < 24) return hours + " hours";
+    const days = Math.round(hours / 24);
+    return days === 1 ? "a day" : days + " days";
   }
 
   /* ---------------- document sheet ---------------- */
@@ -563,23 +857,28 @@
     });
     card.appendChild(dl);
 
-    if ((character.documents || []).length > 0) {
-      const refs = document.createElement("p");
-      refs.className = "index-card-refs";
+    // Only documents actually on the desk are cross-referenced.
+    const refs = (character.documents || []).filter((id) => {
+      const doc = state.byId[id];
+      return doc && (!doc.requires || isDelivered(doc.requires));
+    });
 
-      character.documents.forEach((docId) => {
+    if (refs.length > 0) {
+      const refsEl = document.createElement("p");
+      refsEl.className = "index-card-refs";
+
+      refs.forEach((docId) => {
         const doc = state.byId[docId];
-        if (!doc) return;
         const link = document.createElement("button");
         link.type = "button";
         link.className = "doc-ref";
         link.textContent = doc.title;
         // The drawer stays open, so a record can be read beside its document.
         link.addEventListener("click", () => setActive(docId));
-        refs.appendChild(link);
+        refsEl.appendChild(link);
       });
 
-      card.appendChild(refs);
+      card.appendChild(refsEl);
     }
 
     return card;
@@ -809,5 +1108,9 @@
   function formatDate(iso) {
     const [year, month, day] = iso.split("-").map(Number);
     return day + " " + MONTHS[month - 1] + " " + year;
+  }
+
+  function formatLongDate(date) {
+    return date.getDate() + " " + MONTHS[date.getMonth()] + " " + date.getFullYear();
   }
 })();
