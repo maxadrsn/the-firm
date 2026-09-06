@@ -74,10 +74,15 @@
   const BROWSE_PLACEHOLDER =
     '<p class="placeholder">Take a document from the folder.</p>';
 
+  const CASES_DIR = "../cases/";
+
   const state = {
+    manifest: null,
+    caseEntry: null,
     caseData: null,
     byId: {},
     actionById: {},
+    hintDocs: [],
     activeId: null,
     pinnedId: null,
     reportDraft: {},
@@ -91,6 +96,7 @@
       drawerOpen: false,
       requests: {},   // actionId -> { dueAt, delivered }
       seen: {},       // docId -> true, for the in-tray badge
+      hints: { delivered: [], pending: null },
     },
   };
 
@@ -112,6 +118,10 @@
         drawerOpen: !!parsed.drawerOpen,
         requests: parsed.requests || {},
         seen: parsed.seen || {},
+        hints: {
+          delivered: (parsed.hints && parsed.hints.delivered) || [],
+          pending: (parsed.hints && parsed.hints.pending) || null,
+        },
       };
     } catch (err) {
       // Private windows and blocked site data both throw here. Carry on
@@ -130,8 +140,19 @@
 
   /* ---------------- boot ---------------- */
 
-  fetch("../cases/case-01.json")
+  // The engine knows about the manifest, never about a particular case.
+  // Adding a case means adding a file and a line in cases/manifest.json.
+  fetch(CASES_DIR + "manifest.json")
     .then((res) => res.json())
+    .then((manifest) => {
+      state.manifest = manifest;
+      const wanted = new URLSearchParams(window.location.search).get("case");
+      const entry =
+        (manifest.cases || []).find((c) => c.id === wanted) || (manifest.cases || [])[0];
+      if (!entry) throw new Error("No cases listed in the manifest.");
+      state.caseEntry = entry;
+      return fetch(CASES_DIR + entry.file).then((r) => r.json());
+    })
     .then((caseData) => renderCase(caseData))
     .catch((err) => {
       browsePaneEl.innerHTML =
@@ -148,8 +169,10 @@
 
     caseTitleEl.textContent = caseData.title;
     caseOpensEl.textContent = "Opened " + formatDate(caseData.opens);
+    renderCaseChooser();
 
-    // Requests that came due while the desk was unattended are already waiting.
+    // Requests that came due while the desk was unattended are already waiting,
+    // and any note from a colleague is rebuilt from what was delivered.
     settleDueRequests(true);
 
     reportEntryEl.addEventListener("click", () => setActive(REPORT_VIEW));
@@ -184,6 +207,33 @@
   }
 
   /* ---------------- requests and the clock ---------------- */
+
+  // Only worth showing once there is more than one folder to choose between.
+  function renderCaseChooser() {
+    const cases = (state.manifest && state.manifest.cases) || [];
+    if (cases.length < 2) return;
+
+    const head = document.querySelector(".folder-head");
+    if (!head) return;
+
+    const select = document.createElement("select");
+    select.className = "case-chooser";
+    select.setAttribute("aria-label", "Case folder");
+
+    cases.forEach((c) => {
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.title;
+      if (state.caseEntry && c.id === state.caseEntry.id) opt.selected = true;
+      select.appendChild(opt);
+    });
+
+    select.addEventListener("change", () => {
+      window.location.search = "?case=" + encodeURIComponent(select.value);
+    });
+
+    head.appendChild(select);
+  }
 
   function requestState(actionId) {
     return state.saved.requests[actionId] || null;
@@ -222,23 +272,167 @@
       }
     });
 
+    const h = hintsState();
+    if (h.pending && now >= h.pending.dueAt) {
+      h.delivered.push(h.pending.step);
+      h.pending = null;
+      landed = true;
+    }
+
+    rebuildHintDocs();
+
     if (landed) persist();
     if (landed && !quiet) refresh();
     return landed;
   }
 
   function availableDocuments() {
-    return state.caseData.documents.filter((doc) => {
+    const fromCase = state.caseData.documents.filter((doc) => {
       if (!doc.requires) return true;
       return isDelivered(doc.requires);
     });
+    return fromCase.concat(state.hintDocs);
+  }
+
+  // Anything that came to the desk after the folder landed: a requested
+  // document, or a note from a colleague.
+  function isArrival(doc) {
+    return !!(doc && (doc.requires || doc.hint));
   }
 
   // Documents that have arrived and not yet been opened.
   function unseenArrivals() {
     return availableDocuments().filter(
-      (doc) => doc.requires && !state.saved.seen[doc.id]
+      (doc) => isArrival(doc) && !state.saved.seen[doc.id]
     );
+  }
+
+  /* ---------------- a word with a colleague ---------------- */
+
+  function consultation() {
+    return (state.caseData && state.caseData.consultation) || null;
+  }
+
+  function hintsState() {
+    const h = state.saved.hints;
+    if (!Array.isArray(h.delivered)) h.delivered = [];
+    return h;
+  }
+
+  // One opening remark, then for each authored contradiction: the pair of
+  // documents, then what is wrong between them. Never the culprit.
+  //
+  // Two contradictions can sit between the same pair of documents, and naming
+  // that pair twice would charge the player time for a note they already have,
+  // so a pair is only ever named once.
+  function hintSteps() {
+    if (!consultation()) return [];
+
+    const steps = [{ kind: "opening" }];
+    const named = {};
+
+    (state.caseData.contradictions || []).forEach((contra, i) => {
+      const pair = [parseRef(contra.a).docId, parseRef(contra.b).docId].sort().join("|");
+      if (!named[pair]) {
+        named[pair] = true;
+        steps.push({ kind: "pair", index: i });
+      }
+      steps.push({ kind: "note", index: i });
+    });
+
+    return steps;
+  }
+
+  function nextHintStep() {
+    const h = hintsState();
+    const used = h.delivered.length + (h.pending ? 1 : 0);
+    return used < hintSteps().length ? used : null;
+  }
+
+  function askColleague() {
+    const c = consultation();
+    const h = hintsState();
+    const step = nextHintStep();
+    if (!c || h.pending || step === null) return;
+    h.pending = { step: step, dueAt: Date.now() + c.real_minutes * 60 * 1000 };
+    persist();
+    refresh();
+  }
+
+  function rebuildHintDocs() {
+    state.hintDocs = [];
+    hintsState().delivered.forEach((step) => {
+      const doc = buildHintDoc(step);
+      if (!doc) return;
+      state.byId[doc.id] = doc;
+      state.hintDocs.push(doc);
+    });
+  }
+
+  function buildHintDoc(stepIndex) {
+    const c = consultation();
+    const step = hintSteps()[stepIndex];
+    if (!c || !step) return null;
+
+    const lines = [];
+
+    if (step.kind === "opening") {
+      lines.push(fill(c.opening, {
+        count: numberWord((state.caseData.contradictions || []).length),
+      }));
+    } else {
+      const contra = (state.caseData.contradictions || [])[step.index];
+      if (!contra) return null;
+      const a = parseRef(contra.a);
+      const b = parseRef(contra.b);
+
+      if (step.kind === "pair") {
+        lines.push(fill(c.pair, { a: titleOf(a.docId), b: titleOf(b.docId) }));
+      } else {
+        lines.push(fill(c.note, { note: contra.note }));
+        if (a.para && b.para) {
+          lines.push(fill(c.where_to_look, { pa: a.para, pb: b.para }));
+        } else if (a.para) {
+          lines.push(fill(c.where_to_look_single, { pa: a.para }));
+        }
+      }
+    }
+
+    return {
+      id: "hint-" + stepIndex,
+      hint: true,
+      type: "note",
+      title: "Note from " + (c.short || c.colleague) + " (" + (stepIndex + 1) + ")",
+      letterhead: "Metropolitan Police — C Division",
+      subhead: "Note — " + (c.where || "Sergeants' Room"),
+      meta: [
+        { label: "From", value: c.colleague },
+        { label: "To", value: "D.I., C Division" },
+      ],
+      body: lines.join("\n\n") + "\n\n(Signed) " + c.colleague,
+    };
+  }
+
+  function parseRef(ref) {
+    const parts = String(ref || "").split(":");
+    const para = (parts[1] || "").replace("para-", "");
+    return { docId: parts[0], para: para || null };
+  }
+
+  function titleOf(docId) {
+    const doc = state.byId[docId];
+    return doc ? doc.title : docId;
+  }
+
+  function fill(template, vars) {
+    return String(template || "").replace(/\{(\w+)\}/g, (m, key) =>
+      Object.prototype.hasOwnProperty.call(vars, key) ? vars[key] : m
+    );
+  }
+
+  function numberWord(n) {
+    const words = ["no", "one", "two", "three", "four", "five", "six", "seven"];
+    return words[n] !== undefined ? words[n] : String(n);
   }
 
   function openInTray() {
@@ -253,6 +447,8 @@
     (state.caseData.actions || []).forEach((a) => {
       if (isDelivered(a.id)) hours += a.game_hours || 0;
     });
+    const c = consultation();
+    if (c) hours += hintsState().delivered.length * (c.game_hours || 0);
     return hours;
   }
 
@@ -319,7 +515,9 @@
     trayBadgeEl.hidden = n === 0;
     inTrayEl.classList.toggle("has-post", n > 0);
 
-    const pending = (state.caseData.actions || []).some((a) => isPending(a.id));
+    const pending =
+      (state.caseData.actions || []).some((a) => isPending(a.id)) ||
+      !!hintsState().pending;
     telephoneEl.classList.toggle("waiting", pending);
   }
 
@@ -327,7 +525,7 @@
 
   function setActive(id) {
     state.activeId = id;
-    if (state.byId[id] && state.byId[id].requires && !state.saved.seen[id]) {
+    if (isArrival(state.byId[id]) && !state.saved.seen[id]) {
       state.saved.seen[id] = true;
       persist();
     }
@@ -384,7 +582,7 @@
     // Must be a real boolean: classList.toggle(name, undefined) toggles the
     // class rather than forcing it off, and doc.requires is undefined on the
     // documents that start on the desk.
-    const isNew = !!(doc.requires && !state.saved.seen[doc.id]);
+    const isNew = !!(isArrival(doc) && !state.saved.seen[doc.id]);
     item.classList.toggle("fresh", isNew);
 
     const typeLabel = document.createElement("span");
@@ -494,7 +692,81 @@
     });
 
     sheet.appendChild(list);
+
+    const consult = buildConsultationBlock();
+    if (consult) sheet.appendChild(consult);
+
     return sheet;
+  }
+
+  function buildConsultationBlock() {
+    const c = consultation();
+    if (!c) return null;
+
+    const wrap = document.createElement("section");
+    wrap.className = "consultation";
+
+    const heading = document.createElement("h3");
+    heading.className = "consultation-heading";
+    heading.textContent = "A word with " + (c.short || c.colleague);
+    wrap.appendChild(heading);
+
+    const blurb = document.createElement("p");
+    blurb.className = "consultation-blurb";
+    blurb.textContent =
+      "He has read the file too. He will point you at what does not sit right — never at who did it.";
+    wrap.appendChild(blurb);
+
+    const notes = state.hintDocs;
+    if (notes.length > 0) {
+      const had = document.createElement("p");
+      had.className = "consultation-had";
+      had.appendChild(document.createTextNode("He has given you: "));
+      notes.forEach((doc) => {
+        const link = document.createElement("button");
+        link.type = "button";
+        link.className = "doc-ref";
+        link.textContent = doc.title;
+        link.addEventListener("click", () => setActive(doc.id));
+        had.appendChild(link);
+      });
+      wrap.appendChild(had);
+    }
+
+    const status = document.createElement("div");
+    status.className = "request-status";
+    const h = hintsState();
+
+    if (h.pending) {
+      wrap.classList.add("pending");
+      status.appendChild(document.createTextNode("He is looking. "));
+      const countdown = document.createElement("span");
+      countdown.className = "request-countdown";
+      countdown.dataset.countdown = String(h.pending.dueAt);
+      countdown.textContent = countdownWords(h.pending.dueAt - Date.now());
+      status.appendChild(countdown);
+    } else if (nextHintStep() === null) {
+      const done = document.createElement("span");
+      done.className = "consultation-exhausted";
+      done.textContent = c.exhausted;
+      status.appendChild(done);
+    } else {
+      const cost = document.createElement("span");
+      cost.className = "request-cost";
+      cost.textContent =
+        "about " + c.real_minutes + " min, and " + gameCost(c.game_hours) + " on the case";
+      status.appendChild(cost);
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "request-button";
+      button.textContent = "Ask him";
+      button.addEventListener("click", askColleague);
+      status.appendChild(button);
+    }
+
+    wrap.appendChild(status);
+    return wrap;
   }
 
   function buildRequestRow(action) {

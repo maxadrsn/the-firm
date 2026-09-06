@@ -827,5 +827,17 @@
       "delivers": "doc-16"
     }
   ],
-  "opens_time": "09:00"
+  "opens_time": "09:00",
+  "consultation": {
+    "colleague": "D.S. W. Iveson",
+    "where": "Sergeants' Room",
+    "real_minutes": 2,
+    "game_hours": 8,
+    "opening": "I have read the file through, sir. There are {count} places in it where two papers cannot both be true. I will not point at them for you yet. You will see it quicker than I did, and you will trust it the more for having seen it yourself.",
+    "pair": "Take the {a} and set it beside the {b}. Read the two of them together, and do not be satisfied too easily.",
+    "note": "{note}.",
+    "where_to_look": "You will find it at paragraph {pa} of the one, against paragraph {pb} of the other.",
+    "where_to_look_single": "You will find it at paragraph {pa}. The other document says it throughout.",
+    "exhausted": "I have given you everything I have, sir. The rest of it is yours to do."
+  }
 }

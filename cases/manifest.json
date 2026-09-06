@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {
+      "id": "case-01",
+      "file": "case-01.json",
+      "title": "The Cheshire Street Killing",
+      "opens": "1966-04-12",
+      "blurb": "A scrap dealer dead in a lock-up, and a press that has already made up its mind."
+    }
+  ]
+}
